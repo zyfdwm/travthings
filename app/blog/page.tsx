@@ -27,19 +27,19 @@ export default async function BlogPage({ searchParams }: BlogPageProps) {
     const allPosts = await getBlogPosts();
 
     // Filter posts if there is a search query
-    const filteredPosts = searchQuery 
-        ? allPosts.filter(post => 
+    const filteredPosts = searchQuery
+        ? allPosts.filter(post =>
             post.title.toLowerCase().includes(searchQuery) ||
             post.description.toLowerCase().includes(searchQuery) ||
             post.category.toLowerCase().includes(searchQuery) ||
             post.tags.some(tag => tag.toLowerCase().includes(searchQuery))
-          )
+        )
         : allPosts;
 
     if (filteredPosts.length === 0 && searchQuery) {
         return (
             <main className={styles.container}>
-                <BlogMainHero 
+                <BlogMainHero
                     mediaUrl="https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?q=80&w=2000&auto=format&fit=crop"
                     badge="Search Results"
                     title={<>Results for <span>"{params.search}"</span></>}
@@ -55,11 +55,11 @@ export default async function BlogPage({ searchParams }: BlogPageProps) {
     if (allPosts.length === 0) {
         return (
             <main className={styles.container}>
-                <BlogMainHero 
+                <BlogMainHero
                     mediaUrl="https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?q=80&w=2000&auto=format&fit=crop"
-                    badge="Our Insight"
-                    title={<>Perspectives on the <span>Fluid Horizon.</span></>}
-                    description="Expert insights, hidden trails, and curated itineraries designed for the modern explorer. No standard lists, just editorial depth."
+                    badge="Blog"
+                    title={<>Some Places Don't Make the List — They Make the Journey.</>}
+                    description="A curated space for the curious traveler. Deeper context, quieter discoveries, and editorial perspectives you won't find anywhere else."
                 />
                 <div className={styles.empty}>
                     <p>No posts found. Check back soon!</p>
@@ -72,13 +72,13 @@ export default async function BlogPage({ searchParams }: BlogPageProps) {
     const featuredPost = !searchQuery ? filteredPosts.find(post => post.isFeatured) : null;
 
     // Grid posts (excluding the featured one if it exists)
-    const gridPostsSource = featuredPost 
+    const gridPostsSource = featuredPost
         ? filteredPosts.filter(post => post.id !== featuredPost.id)
         : filteredPosts;
 
     // Pagination logic
     const totalPages = Math.ceil(gridPostsSource.length / postsPerPage);
-    
+
     // Safety check for empty pages
     if (currentPage > totalPages && totalPages > 0) {
         redirect(searchQuery ? `/blog?search=${searchQuery}&page=1` : "/blog?page=1");
@@ -89,13 +89,13 @@ export default async function BlogPage({ searchParams }: BlogPageProps) {
 
     return (
         <main className={styles.container}>
-            <BlogMainHero 
+            <BlogMainHero
                 mediaUrl="https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?q=80&w=2000&auto=format&fit=crop"
-                badge={searchQuery ? "Search Results" : "Our Insight"}
-                title={searchQuery ? <>Results for <span>"{params.search}"</span></> : <>Perspectives on the <span>Fluid Horizon.</span></>}
-                description={searchQuery ? `Showing ${filteredPosts.length} matches for your query.` : "Expert insights, hidden trails, and curated itineraries designed for the modern explorer. No standard lists, just editorial depth."}
+                badge={searchQuery ? "Search Results" : "Blog"}
+                title={searchQuery ? <>Results for <span>"{params.search}"</span></> : <>Some Places Don't Make the List — They Make the Journey.</>}
+                description={searchQuery ? `Showing ${filteredPosts.length} matches for your query.` : "A curated space for the curious traveler. Deeper context, quieter discoveries, and editorial perspectives you won't find anywhere else."}
             />
-            
+
             {/* Show Featured Post strictly if it exists, we're on page 1, and NOT searching */}
             {currentPage === 1 && featuredPost && !searchQuery && (
                 <FeaturedPost post={featuredPost} />
@@ -126,12 +126,12 @@ function PaginationWrapper({ totalPages, currentPage }: { totalPages: number, cu
             {currentPage > 1 && (
                 <a href={`/blog?page=${currentPage - 1}`} className={styles.navBtn}>← Previous</a>
             )}
-            
+
             <div className={styles.pageNumbers}>
                 {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
-                    <a 
-                        key={page} 
-                        href={`/blog?page=${page}`} 
+                    <a
+                        key={page}
+                        href={`/blog?page=${page}`}
                         className={`${styles.pageNumber} ${currentPage === page ? styles.activePage : ""}`}
                     >
                         {page}

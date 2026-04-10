@@ -12,10 +12,9 @@ const DestinationCard: React.FC<DestinationCardProps> = ({ item }) => {
     return (
         <div className={styles.card}>
             <div className={styles.imageWrapper}>
-                <a href={item.url} target="_blank" rel="noopener noreferrer">
+                <a href={item.url} target="_blank" rel="noopener noreferrer" className={styles.imageLink}>
                     <Image 
-                        src={item.image} 
-                        alt={item.title} 
+                        src={item.image}                         alt={item.title} 
                         fill 
                         className={styles.image}
                         sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"

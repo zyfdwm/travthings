@@ -6,11 +6,10 @@ export default function BlogHero() {
         <section className={styles.hero}>
             <div className={styles.container}>
                 <h1 className={styles.title}>
-                    Perspectives on the <span className={styles.accent}>Fluid Horizon.</span>
+                    Some Places Don't Make the List — They Make the Journey.
                 </h1>
                 <p className={styles.subtitle}>
-                    Expert insights, hidden trails, and curated itineraries designed for the modern explorer.
-                    No standard lists, just editorial depth.
+                    A curated space for the curious traveler. Deeper context, quieter discoveries, and editorial perspectives you won't find anywhere else.
                 </p>
             </div>
         </section>

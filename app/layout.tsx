@@ -30,8 +30,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={`${plusJakartaSans.variable} ${interTight.variable}`}>
-      <body>
+    <html lang="en" className={`${plusJakartaSans.variable} ${interTight.variable}`} data-scroll-behavior="smooth">
+      <body data-scroll-behavior="smooth">
         <Navbar />
         <main>{children}</main>
         <Footer />
