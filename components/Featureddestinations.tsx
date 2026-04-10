@@ -129,7 +129,6 @@ export default function FeaturedDestinations() {
                             Learn more →
                         </Link>
                     </motion.div>
-
                     {/* Bottom Left Card */}
                     <motion.div className={styles.cardBottomLeft} variants={itemVariants}>
                         <Link
