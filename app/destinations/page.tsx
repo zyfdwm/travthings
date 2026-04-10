@@ -1,99 +1,57 @@
-"use client";
-
-import React, { useState } from "react";
+import React from "react";
+import { Metadata } from "next";
 import DestinationsHero from "@/components/DestinationsHero";
-import DestinationCard, { DestinationItem } from "@/components/DestinationCard";
+import DestinationCard from "@/components/DestinationCard";
+import { getDestinations } from "@/lib/notion";
 import styles from "./Destinations.module.css";
 
-const CATEGORIES = ["All Curations", "Jakarta", "Bandung", "Bali", "Yogyakarta"];
+const CATEGORIES = ["All Destinations", "Jakarta", "Bandung", "Bali", "Yogyakarta"];
 
-const MOCK_DESTINATIONS: DestinationItem[] = [
-    {
-        id: "bali-1",
-        title: "Ubud Sanctuary",
-        location: "Bali, Indonesia",
-        category: "Bali",
-        badge: "TRENDING",
-        duration: "7 NIGHTS",
-        activityType: "WELLNESS",
-        price: "From $4,200",
-        description: "Immerse yourself in the spiritual heart of Bali with our curated meditation and jungle...",
-        image: "https://images.unsplash.com/photo-1537996194471-e657df975ab4?q=80&w=1200&auto=format&fit=crop",
-        url: "#"
-    },
-    {
-        id: "bali-2",
-        title: "Uluwatu Sunset Bar",
-        location: "Bali, Indonesia",
-        category: "Bali",
-        badge: "COASTAL",
-        duration: "5 NIGHTS",
-        activityType: "LEISURE",
-        price: "From $3,100",
-        description: "Witness the most stunning cliffside sunsets in Indonesia with exclusive beach club access.",
-        image: "https://images.unsplash.com/photo-1518548419970-58e3b4079ab2?q=80&w=1200&auto=format&fit=crop",
-        url: "#"
-    },
-    {
-        id: "jakarta-1",
-        title: "Menteng Heritage",
-        location: "Jakarta, Indonesia",
-        category: "Jakarta",
-        badge: "HISTORIC",
-        duration: "3 NIGHTS",
-        activityType: "CULTURAL",
-        price: "From $1,800",
-        description: "Discover the colonial charm of Jakarta's most prestigious neighborhood in a boutique setting.",
-        image: "https://img.jakpost.net/c/2017/07/13/2017_07_13_29757_1499945184._large.jpg?q=80&w=1200&auto=format&fit=crop",
-        url: "#"
-    },
-    {
-        id: "jakarta-2",
-        title: "Sudirman Skyline",
-        location: "Jakarta, Indonesia",
-        category: "Jakarta",
-        badge: "URBAN",
-        duration: "Mainly Business",
-        activityType: "MODERN",
-        price: "From $2,200",
-        description: "Experience the pulse of the capital from skyscrapers with private helipad tours.",
-        image: "https://citywalkjakarta.com/storage/media/2025/04/04/citywalk-sudirman.png?q=80&w=1200&auto=format&fit=crop",
-        url: "#"
-    },
-    {
-        id: "bandung-1",
-        title: "Dago Highlands",
-        location: "Bandung, Indonesia",
-        category: "Bandung",
-        badge: "ALPINE",
-        duration: "4 NIGHTS",
-        activityType: "RETREAT",
-        price: "From $1,500",
-        description: "Cool mountain breezes and tea plantation vistas await in the Paris of Java.",
-        image: "https://assets.promediateknologi.id/crop/0x0:0x0/1200x0/webp/photo/p3/264/2025/11/01/Hotel-Dago-Bandung-4198116116.jpg?q=80&w=1200&auto=format&fit=crop",
-        url: "#"
-    },
-    {
-        id: "yogyakarta-1",
-        title: "Keraton Elegance",
-        location: "Yogyakarta, Indonesia",
-        category: "Yogyakarta",
-        badge: "ROYAL",
-        duration: "4 NIGHTS",
-        activityType: "CULTURAL",
-        price: "From $2,000",
-        description: "Step into the soul of Javanese culture with private visits to the Sultan's Palace.",
-        image: "https://geoparkjogja.jogjaprov.go.id/uploads/site/1683517798_e7978510b2b1a5671686.jpg?q=80&w=1200&auto=format&fit=crop",
-        url: "#"
+interface DestinationsPageProps {
+    searchParams: Promise<{ category?: string; search?: string; page?: string }>;
+}
+
+export async function generateMetadata({ searchParams }: DestinationsPageProps): Promise<Metadata> {
+    const { category } = await searchParams;
+
+    // Logic for Destination Name
+    let destinationName = "Indonesia";
+    if (category && category.toLowerCase() !== "all destinations") {
+        destinationName = category.charAt(0).toUpperCase() + category.slice(1);
     }
-];
 
-export default function DestinationsPage() {
-    const [selectedCategory, setSelectedCategory] = useState("All Curations");
+    return {
+        title: `${destinationName} Destinations | Curated Destinations & Tailored Itineraries`,
+        description: `Plan your trip to ${destinationName}. Discover hand-picked spots, expert tips, and tailored travel plans curated by the Travel Things team.`,
+    };
+}
 
-    const filteredDestinations = selectedCategory === "All Curations"
-        ? MOCK_DESTINATIONS
-        : MOCK_DESTINATIONS.filter(item => item.category === selectedCategory);
+export default async function DestinationsPage({ searchParams }: DestinationsPageProps) {
+    const { category, search, page } = await searchParams;
+    const currentPage = Number(page) || 1;
+    const itemsPerPage = 6;
+
+    // Fetch real destinations from Notion
+    const allDestinations = await getDestinations();
+
+    const selectedCategory = category ? category.charAt(0).toUpperCase() + category.slice(1) : "All Destinations";
+    const searchQuery = search?.toLowerCase() || "";
+
+    const filteredDestinations = allDestinations.filter(item => {
+        const matchesCategory = selectedCategory === "All Destinations" || item.category === selectedCategory;
+        const matchesSearch = !searchQuery ||
+            item.title.toLowerCase().includes(searchQuery) ||
+            item.location.toLowerCase().includes(searchQuery) ||
+            item.category.toLowerCase().includes(searchQuery) ||
+            item.description.toLowerCase().includes(searchQuery);
+
+        return matchesCategory && matchesSearch;
+    });
+
+    // Pagination logic
+    const totalPages = Math.ceil(filteredDestinations.length / itemsPerPage);
+    const startIndex = (currentPage - 1) * itemsPerPage;
+    const paginatedDestinations = filteredDestinations.slice(startIndex, startIndex + itemsPerPage);
 
     return (
         <main className={styles.container}>
@@ -105,29 +63,84 @@ export default function DestinationsPage() {
                 <div className={styles.filterInner}>
                     <div className={styles.pillContainer}>
                         {CATEGORIES.map((cat) => (
-                            <button
+                            <a
                                 key={cat}
+                                href={cat === "All Destinations" ? "/destinations" : `/destinations?category=${cat.toLowerCase()}`}
                                 className={`${styles.pill} ${selectedCategory === cat ? styles.pillActive : ""}`}
-                                onClick={() => setSelectedCategory(cat)}
                             >
                                 {cat}
-                            </button>
+                            </a>
                         ))}
                     </div>
                     <div className={styles.stats}>
-                        Showing {filteredDestinations.length} of {MOCK_DESTINATIONS.length} destinations
+                        Showing {paginatedDestinations.length} of {filteredDestinations.length} filtered results
                     </div>
                 </div>
             </div>
 
-            {/* Grid */}
+            {/* Grid Section */}
             <section className={styles.gridSection}>
                 <div className={styles.grid}>
-                    {filteredDestinations.map((item) => (
+                    {paginatedDestinations.map((item) => (
                         <DestinationCard key={item.id} item={item} />
                     ))}
                 </div>
+
+                {totalPages > 1 && (
+                    <div className={styles.paginationWrapper}>
+                        <PaginationWrapper
+                            totalPages={totalPages}
+                            currentPage={currentPage}
+                            category={category}
+                            search={search}
+                        />
+                    </div>
+                )}
             </section>
         </main>
+    );
+}
+
+function PaginationWrapper({
+    totalPages,
+    currentPage,
+    category,
+    search
+}: {
+    totalPages: number,
+    currentPage: number,
+    category?: string,
+    search?: string
+}) {
+    const getBaseUrl = (page: number) => {
+        const params = new URLSearchParams();
+        if (category) params.set("category", category);
+        if (search) params.set("search", search);
+        params.set("page", page.toString());
+        return `/destinations?${params.toString()}`;
+    };
+
+    return (
+        <nav className={styles.paginationNav}>
+            {currentPage > 1 && (
+                <a href={getBaseUrl(currentPage - 1)} className={styles.navBtn}>← Previous</a>
+            )}
+
+            <div className={styles.pageNumbers}>
+                {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
+                    <a
+                        key={page}
+                        href={getBaseUrl(page)}
+                        className={`${styles.pageNumber} ${currentPage === page ? styles.activePage : ""}`}
+                    >
+                        {page}
+                    </a>
+                ))}
+            </div>
+
+            {currentPage < totalPages && (
+                <a href={getBaseUrl(currentPage + 1)} className={styles.navBtn}>Next →</a>
+            )}
+        </nav>
     );
 }

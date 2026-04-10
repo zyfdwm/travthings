@@ -13,10 +13,10 @@ const destinations = [
     { label: "Yogyakarta, Indonesia", slug: "yogyakarta" },
 ];
 
-export default function HeroSection({ minimal = false, videoSrc }: { minimal?: boolean, videoSrc?: string }) {
+export default function HeroSection({ minimal = false }: { minimal?: boolean }) {
     const [index, setIndex] = useState(0);
     const [animKey, setAnimKey] = useState(0);
-    
+
     useEffect(() => {
         const interval = setInterval(() => {
             setIndex((prev) => (prev + 1) % destinations.length);
@@ -43,30 +43,19 @@ export default function HeroSection({ minimal = false, videoSrc }: { minimal?: b
 
     return (
         <section className={styles.hero}>
-            <div className={styles.bg}>
-                {videoSrc && (
-                    <video 
-                        src={videoSrc}
-                        autoPlay
-                        muted
-                        loop
-                        playsInline
-                        className={styles.video}
-                    />
-                )}
-            </div>
+            <div className={styles.bg} />
             <div className={styles.overlay} />
 
             <div className={styles.content}>
                 {/* Badge */}
-                <motion.span 
+                <motion.span
                     className={styles.badge}
                     initial="hidden"
                     animate="visible"
                     custom={0}
                     variants={fadeIn}
                 >
-                    Your Travel Partner
+                    Explore Indonesia
                 </motion.span>
 
                 {/* Heading */}
@@ -78,27 +67,25 @@ export default function HeroSection({ minimal = false, videoSrc }: { minimal?: b
                     className={styles.headingWrapper}
                 >
                     <h1 className={styles.heading}>
-                        Discover the <br />
-                        <span className={styles.headingAccent}>Fluid Horizon.</span>
+                        Unforgettable <br />
+                        <span className={styles.headingAccent}>Cultural Journeys.</span>
                     </h1>
                 </motion.div>
 
                 {/* Subtitle */}
-                <motion.p 
+                <motion.p
                     className={styles.subtitle}
                     initial="hidden"
                     animate="visible"
                     custom={2}
                     variants={fadeIn}
                 >
-                    Beyond the grid of standard travel booking. We curate
-                    experiences that breathe, shift, and inspire the
-                    modern explorer.
+                    Turn every trip into a memorable experience. Discover beautiful places, connect with local culture, and travel in comfort.
                 </motion.p>
 
                 {/* CTA Bar */}
                 {!minimal && (
-                    <motion.div 
+                    <motion.div
                         className={styles.ctaBar}
                         initial="hidden"
                         animate="visible"
@@ -110,7 +97,7 @@ export default function HeroSection({ minimal = false, videoSrc }: { minimal?: b
                                 <Compass className={styles.compassIcon} size={18} />
                             </div>
                             <div className={styles.ctaText}>
-                                <span className={styles.ctaLabel}>Destination</span>
+                                <span className={styles.ctaLabel}>Where To Go?</span>
                                 <div className={styles.tickerWrapper}>
                                     <div
                                         key={animKey}

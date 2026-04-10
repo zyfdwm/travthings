@@ -7,32 +7,30 @@ import styles from "./FeaturedDestinations.module.css";
 
 const destinations = [
     {
-        title: "The Arctic Glasshouse",
-        category: "Norway",
-        slug: "arctic-glasshouse",
-        image: "https://lh3.googleusercontent.com/aida-public/AB6AXuAqapeJtdyYj-v_no-qRtQghBqkOkaJyfR3Y15RoZSmO_oTB7kpF5qHUA9lgxlcr25DWK8OJzEYPyAzP58hulokIl3P5gVmV7JBuXuG2KCUqmH4Hse1Yo8r-oPVhWfJtgi8n1yZ2xolnrZ0ZOJsmLGul3FScy6BkxKfxNjdF_RO0s4IcNgLTFDrnKx8KnXh627FDvEhyiAVYaGonKNmFVvbnu5WMH1TADEDmFC1FosuB7LsmQPOlW5z1baavD5TYOXD0-_TeUq4BPQ?q=80&w=1200&auto=format&fit=crop",
+        title: "Jakarta",
+        slug: "?category=jakarta",
+        image: "https://res.cloudinary.com/dgz4njcvb/image/upload/v1775839851/Explore_Jakarta_cfyo7b.jpg?q=80&w=1200&auto=format&fit=crop",
         type: "feature",
     },
     {
-        title: "Riad Emeraude",
-        category: "Morocco",
-        slug: "riad-emeraude",
-        image: "https://lh3.googleusercontent.com/aida-public/AB6AXuAwgSEnlttvFUDizZ4bsIkEFbCIu3TJfiFfyyHRvbcld_xC91aJ0B04lUCPP89kd_lT-regwoMVcrYM_heirBcyttjeZSGxiWUdmMMNV8VXoy9CFiTo-FjAHe9iJL9tZyTDi0TvNXFjVa0JooEEUhQx1yVbHcJVO7onbDKgRmisohVFT4LR8FVF2FjBL3G_qntTA_rlaxseQczN4N6Jg9aHangAuhcsv69IhC2wx7SyuuvFTuEl2Rv7dK5n2tH8Rh9m2_30QU93VV4?q=80&w=1200&auto=format&fit=crop",
+        title: "Bali",
+        slug: "?category=bali",
+        image: "https://res.cloudinary.com/dgz4njcvb/image/upload/v1775840218/steptodown.com926926_yzche5.jpg?q=80&w=1200&auto=format&fit=crop",
         type: "small",
-        isFeatured: true,
+        isFeatured: false,
     },
     {
-        title: "Maldivian Solitude",
-        category: "Maldives",
-        slug: "maldives",
-        image: "https://images.unsplash.com/photo-1514282401047-d79a71a590e8?q=80&w=1200&auto=format&fit=crop",
+        title: "Bandung",
+        // category: "?category=bandung",
+        slug: "?category=bandung",
+        image: "https://res.cloudinary.com/dgz4njcvb/image/upload/v1775840320/steptodown.com912575_svnoje.jpg?q=80&w=1200&auto=format&fit=crop",
         type: "bottom-left",
     },
     {
-        title: "Aegean Chronicles",
-        category: "Greece",
-        slug: "aegean",
-        image: "https://images.unsplash.com/photo-1570077188670-e3a8d69ac5ff?q=80&w=1200&auto=format&fit=crop",
+        title: "Yogyakarta",
+        category: "Yogyakarta",
+        slug: "?category=yogyakarta",
+        image: "https://res.cloudinary.com/dgz4njcvb/image/upload/v1775840482/steptodown.com996184_s8flth.jpg?q=80&w=1200&auto=format&fit=crop",
         type: "bottom-wide",
     },
 ];
@@ -76,7 +74,8 @@ export default function FeaturedDestinations() {
                         <h2 className={styles.title}>Curated Havens.</h2>
                     </motion.div>
                     <motion.div className={styles.headerDescription} variants={itemVariants}>
-                        <p>Moving beyond luxury. We identify properties that possess a unique spirit, an architectural voice, and a deep sense of place.</p>
+                        <p>Travel deeper into Indonesia.
+                            Find stays that bring you closer to its culture, nature, and everyday life.</p>
                     </motion.div>
                 </motion.div>
 
@@ -99,7 +98,7 @@ export default function FeaturedDestinations() {
                             <div className={styles.cardContent}>
                                 <p className={styles.cardCategory}>{destinations[0].category}</p>
                                 <h3 className={styles.cardTitle}>{destinations[0].title}</h3>
-                                <span className={styles.cardLink}>Explore Retreat</span>
+                                {/* <span className={styles.cardLink}>Explore Retreat</span> */}
                             </div>
                         </Link>
                     </motion.div>
@@ -124,9 +123,9 @@ export default function FeaturedDestinations() {
                         <div className={styles.guaranteeIcon}>
                             <ShieldCheck size={28} strokeWidth={1.5} />
                         </div>
-                        <h3 className={styles.guaranteeTitle}>The Concierge Guarantee.</h3>
-                        <p className={styles.guaranteeText}>Every destination verified by our experts. Every itinerary tailored to your pulse.</p>
-                        <Link href="/concierge" className={styles.guaranteeLink}>
+                        <h3 className={styles.guaranteeTitle}>Beyond the Destination.</h3>
+                        <p className={styles.guaranteeText}>Explore the extraordinary with total peace of mind. Our experts vet every corner of the globe so we can tailor every second of your escape to your unique pace.</p>
+                        <Link href="/destinations" className={styles.guaranteeLink}>
                             Learn more →
                         </Link>
                     </motion.div>

@@ -1,0 +1,132 @@
+.section {
+    padding: 0 0 60px;
+    background: #ffffff;
+    position: relative;
+    z-index: 20;
+    margin-top: 80px;
+}
+
+.container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 40px;
+}
+
+.card {
+    display: flex;
+    background: #ffffff;
+    border-radius: 24px;
+    overflow: hidden;
+    gap: 0;
+    box-shadow: 0 30px 60px rgba(0,0,0,0.08);
+    min-height: 540px;
+}
+
+.imageWrapper {
+    flex: 1.4;
+    position: relative;
+    overflow: hidden;
+}
+
+.image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.card:hover .image {
+    transform: scale(1.03);
+}
+
+.content {
+    flex: 1;
+    padding: 60px 80px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.meta {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 24px;
+}
+
+.badge {
+    font-family: var(--font-body);
+    font-size: 10px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: #0d4677;
+}
+
+.dot {
+    color: #cbd5e1;
+    font-size: 8px;
+}
+
+.date {
+    font-family: var(--font-body);
+    font-size: 13px;
+    color: #94a3b8;
+    font-weight: 500;
+}
+
+.title {
+    font-family: var(--font-heading);
+    font-size: 42px;
+    font-weight: 700;
+    line-height: 1.2;
+    color: #1a243d;
+    margin: 0 0 24px 0;
+    letter-spacing: -0.02em;
+}
+
+.summary {
+    font-family: var(--font-body);
+    font-size: 16px;
+    line-height: 1.7;
+    color: #555e70;
+    margin: 0 0 40px 0;
+}
+
+.readMore {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-family: var(--font-body);
+    font-size: 13px;
+    font-weight: 700;
+    color: #0d4677;
+    text-decoration: none;
+    transition: gap 0.2s;
+}
+
+.readMore:hover {
+    gap: 12px;
+}
+
+@media (max-width: 1024px) {
+    .card {
+        flex-direction: column;
+        min-height: auto;
+    }
+    .imageWrapper {
+        aspect-ratio: 16 / 9;
+    }
+    .content {
+        padding: 40px;
+    }
+    .title {
+        font-size: 32px;
+    }
+}
+
+@media (max-width: 768px) {
+    .content {
+        padding: 32px 24px;
+    }
+}

@@ -1,0 +1,75 @@
+.sidebar {
+    position: sticky;
+    top: 120px;
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+    width: 350px;
+    flex-shrink: 0;
+}
+
+.disclaimerSection {
+    padding: 24px;
+    background: #f8fafc;
+    border-radius: 16px;
+    border: 1px solid #f1f5f9;
+}
+
+.disclaimerText {
+    font-family: var(--font-body);
+    font-size: 13px;
+    line-height: 1.6;
+    color: #64748b;
+    margin: 0;
+}
+
+.section {
+    padding: 24px;
+    background: #ffffff;
+    border-radius: 16px;
+    border: 1px solid #f1f5f9;
+}
+
+.label {
+    font-family: var(--font-body);
+    font-size: 13px;
+    font-weight: 700;
+    color: #1a243d;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.shareGrid {
+    display: flex;
+    gap: 12px;
+}
+
+.shareBtn {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    border: 1px solid #e2e8f0;
+    background: #ffffff;
+    color: #555e70;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s cubic-bezier(0.21, 0.45, 0.32, 0.9);
+}
+
+.shareBtn:hover {
+    background: #0d4677;
+    color: #ffffff;
+    border-color: #0d4677;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(13, 70, 119, 0.15);
+}
+
+@media (max-width: 1024px) {
+    .sidebar {
+        position: static;
+        margin-top: 40px;
+    }
+}

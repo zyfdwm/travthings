@@ -1,25 +1,21 @@
 .hero {
     position: relative;
+    height: 100vh;
+    min-height: 700px;
     width: 100%;
-    height: calc(100vh - 64px);
-    min-height: 620px;
-    overflow: hidden;
     display: flex;
     align-items: center;
     justify-content: center;
+    overflow: hidden;
+    background: #000;
 }
 
 .bg {
     position: absolute;
     inset: 0;
-    z-index: 0;
-    background: #111111;
 }
 
 .media {
-    position: absolute;
-    top: 0;
-    left: 0;
     width: 100%;
     height: 100%;
     object-fit: cover;
@@ -29,80 +25,82 @@
     position: absolute;
     inset: 0;
     background: rgba(0, 0, 0, 0.6);
-    z-index: 1;
 }
 
 .content {
     position: relative;
-    z-index: 2;
-    max-width: 900px;
-    margin: 0 auto;
-    padding: 0 24px;
+    z-index: 10;
+    max-width: 1400px;
     width: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+    margin: 0 auto;
+    padding: 0 40px;
     text-align: center;
 }
 
 .badge {
-    display: inline-flex;
-    align-items: center;
-    background: rgba(255, 255, 255, 0.15);
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
+    display: inline-block;
     color: #ffffff;
-    font-family: var(--font-body);
     font-size: 11px;
     font-weight: 800;
     text-transform: uppercase;
-    padding: 6px 16px;
-    border-radius: 999px;
+    letter-spacing: 0.2em;
     margin-bottom: 24px;
+    padding: 6px 16px;
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
     border: 1px solid rgba(255, 255, 255, 0.2);
-    letter-spacing: 0.15em;
+    border-radius: 4px;
 }
 
 .headingWrapper {
     margin-bottom: 24px;
+    max-width: 900px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .heading {
     font-family: var(--font-heading);
-    font-size: clamp(48px, 6vw, 82px);
-    font-weight: 800;
+    font-size: 72px;
+    font-weight: 700;
     line-height: 1.1;
     color: #ffffff;
-    letter-spacing: -3px;
-    margin: 0;
+    letter-spacing: -0.03em;
 }
 
-.headingAccent {
-    color: #ffffff;
+.heading span {
+    font-style: italic;
+    font-weight: 400;
+    opacity: 0.9;
 }
 
 .subtitle {
     font-family: var(--font-body);
     font-size: 18px;
     line-height: 1.6;
-    color: rgba(255, 255, 255, 0.85);
+    color: rgba(255, 255, 255, 0.9);
     max-width: 650px;
     margin: 0 auto;
-    font-weight: 400;
 }
 
-@media (max-width: 640px) {
+@media (max-width: 1024px) {
+    .heading {
+        font-size: 56px;
+    }
+}
+
+@media (max-width: 768px) {
     .hero {
         height: 60vh;
-        min-height: 400px;
     }
-
+    .content {
+        padding: 0 24px;
+    }
     .heading {
         font-size: 40px;
-        letter-spacing: -1.5px;
     }
-
     .subtitle {
-        font-size: 15px;
+        font-size: 16px;
     }
 }

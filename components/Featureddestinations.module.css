@@ -28,7 +28,6 @@
     font-size: 14px;
     font-weight: 700;
     text-transform: normal;
-    letter-spacing: 0.1em;
     color: #0d4677;
     margin-bottom: 16px;
 }
@@ -126,7 +125,7 @@
     font-weight: 600;
     color: rgba(255, 255, 255, 0.8);
     text-transform: normal;
-    letter-spacing: 0.1em;
+    /* letter-spacing: 0.1em; */
     margin-bottom: 8px;
 }
 

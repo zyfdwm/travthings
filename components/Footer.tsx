@@ -9,7 +9,7 @@ const Footer = () => {
       <div className={styles.container}>
         <div className={styles.leftColumn}>
           <div className={styles.brandSection}>
-            <h2 className={styles.logo}>TravThings.</h2>
+            <h2 className={styles.logo}>Travel Things.</h2>
             <p className={styles.description}>
               Redefining exploration through the lens of modern luxury.
               Our global network ensures every detail of your journey is as
@@ -20,7 +20,7 @@ const Footer = () => {
             <Link href="/" className={styles.socialLink}>
               <Globe size={20} />
             </Link>
-            <Link href="mailto:hello@travthings.com" className={styles.socialLink}>
+            <Link href="mailto:hello@travelthings.com" className={styles.socialLink}>
               <Mail size={20} />
             </Link>
           </div>

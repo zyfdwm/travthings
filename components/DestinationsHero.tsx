@@ -1,3 +1,6 @@
+"use client";
+
+import { useState, useEffect } from "react";
 import Image from "next/image";
 import { motion } from "framer-motion";
 import styles from "./DestinationsHero.module.css";
@@ -7,6 +10,12 @@ interface DestinationsHeroProps {
 }
 
 export default function DestinationsHero({ mediaUrl }: DestinationsHeroProps) {
+    const [isMounted, setIsMounted] = useState(false);
+
+    useEffect(() => {
+        setIsMounted(true);
+    }, []);
+
     const isVideo = (url: string) => {
         const videoExtensions = ['.mp4', '.webm', '.ogg', '.mov'];
         const isExtMatch = videoExtensions.some(ext => url.toLowerCase().includes(ext));
@@ -49,48 +58,67 @@ export default function DestinationsHero({ mediaUrl }: DestinationsHeroProps) {
                         fill
                         className={styles.media}
                         priority
-                        unoptimized={mediaUrl.includes('cloudinary')} // Recommended for Cloudinary if not using loader
+                        unoptimized={mediaUrl.includes('cloudinary')}
                     />
                 )}
             </div>
             <div className={styles.overlay} />
 
             <div className={styles.content}>
-                {/* Badge */}
-                <motion.span
-                    className={styles.badge}
-                    initial="hidden"
-                    animate="visible"
-                    custom={0}
-                    variants={fadeIn}
-                >
-                    Your Next Adventure
-                </motion.span>
+                {isMounted && (
+                    <>
+                        {/* Badge */}
+                        <motion.span
+                            className={styles.badge}
+                            initial="hidden"
+                            animate="visible"
+                            custom={0}
+                            variants={fadeIn}
+                        >
+                            YOUR JOURNEY BEGINS HERE
+                        </motion.span>
 
-                {/* Heading */}
-                <motion.div
-                    initial="hidden"
-                    animate="visible"
-                    custom={1}
-                    variants={fadeIn}
-                    className={styles.headingWrapper}
-                >
-                    <h1 className={styles.heading}>
-                        Find Your <br />
-                        <span className={styles.headingAccent}>Perfect Escape.</span>
-                    </h1>
-                </motion.div>
+                        {/* Heading */}
+                        <motion.div
+                            initial="hidden"
+                            animate="visible"
+                            custom={1}
+                            variants={fadeIn}
+                            className={styles.headingWrapper}
+                        >
+                            <h1 className={styles.heading}>
+                                Find Places <br />
+                                <span className={styles.headingAccent}>That Feel Right</span>
+                            </h1>
+                        </motion.div>
 
-                {/* Subtitle */}
-                <motion.p
-                    className={styles.subtitle}
-                    initial="hidden"
-                    animate="visible"
-                    custom={2}
-                    variants={fadeIn}
-                >
-                    Stop dreaming and start packing. Explore our handpicked destinations and craft an unforgettable journey tailored just for you.
-                </motion.p>
+                        {/* Subtitle / Description */}
+                        <motion.p
+                            className={styles.subtitle}
+                            initial="hidden"
+                            animate="visible"
+                            custom={2}
+                            variants={fadeIn}
+                        >
+                            Curated destinations across Indonesia, built for real experiences.
+                        </motion.p>
+                    </>
+                )}
+
+                {!isMounted && (
+                    <>
+                        <span className={styles.badge}>YOUR JOURNEY BEGINS HERE</span>
+                        <div className={styles.headingWrapper}>
+                            <h1 className={styles.heading}>
+                                Find Places<br />
+                                <span className={styles.headingAccent}>That Feel Right</span>
+                            </h1>
+                        </div>
+                        <p className={styles.subtitle}>
+                            Curated destinations across Indonesia, built for real experiences.
+                        </p>
+                    </>
+                )}
             </div>
         </section>
     );

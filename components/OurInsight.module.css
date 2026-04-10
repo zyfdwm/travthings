@@ -69,7 +69,7 @@
 
 .imageWrapper {
     position: relative;
-    aspect-ratio: 4 / 5;
+    aspect-ratio: 16 / 10;
     border-radius: 20px;
     overflow: hidden;
     margin-bottom: 24px;
@@ -116,6 +116,19 @@
     line-height: 1.25;
 }
 
+.titleLink {
+    text-decoration: none;
+    color: inherit;
+}
+
+.titleLink:hover .cardTitle {
+    color: #0d4677;
+}
+
+.imageLink {
+    display: block;
+}
+
 .cardSummary {
     font-family: var(--font-body);
     font-size: 15px;
@@ -132,7 +145,6 @@
     font-family: var(--font-body);
     font-size: 11px;
     font-weight: 700;
-    letter-spacing: 0.1em;
     color: #94a3b8;
 }
 
@@ -148,15 +160,36 @@
     margin: 0 4px;
 }
 
-.readLink {
-    color: #0d4677;
-    text-decoration: none;
-    white-space: nowrap;
-    transition: color 0.2s;
-}
-
 .readLink:hover {
     color: #0070bc;
+}
+
+.moreContainer {
+    display: flex;
+    justify-content: center;
+    margin-top: 60px;
+}
+
+.moreLink {
+    font-family: var(--font-body);
+    font-size: 13px;
+    font-weight: 700;
+    color: #0d4677;
+    text-decoration: none;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    padding: 12px 32px;
+    border: 1px solid #e2e8f0;
+    border-radius: 100px;
+    transition: all 0.3s ease;
+}
+
+.moreLink:hover {
+    background: #0d4677;
+    color: #ffffff;
+    border-color: #0d4677;
+    transform: translateY(-2px);
+    box-shadow: 0 10px 20px rgba(13, 70, 119, 0.15);
 }
 
 @media (max-width: 1024px) {
@@ -170,11 +203,11 @@
         flex-direction: column;
         gap: 20px;
     }
-    
+
     .grid {
         grid-template-columns: 1fr;
     }
-    
+
     .title {
         font-size: 32px;
     }

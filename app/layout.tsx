@@ -19,9 +19,9 @@ const interTight = Inter_Tight({
 });
 
 export const metadata: Metadata = {
-  title: "TravThings – Indonesia Travel Guide",
+  title: "Travel Things | Curated Destinations & Tailored Itineraries",
   description:
-    "Discover the best destinations, tours, hotels, and experiences in Indonesia. Curated travel recommendations for tourists and foreigners.",
+    "Discover expert-verified destinations and bespoke travel itineraries with Travel Things. Experience the world at your own pace with our premium concierge service.",
 };
 
 export default function RootLayout({

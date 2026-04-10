@@ -5,43 +5,10 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 import styles from "./OurInsight.module.css";
 
-// Mock data to ensure the layout is visible even if Notion is not configured yet
-const mockPosts = [
-    {
-        id: "mock-1",
-        title: "Finding Silence in the Sahara",
-        summary: "How the vast emptiness of the dunes provides the perfect canvas for modern introspection.",
-        category: "Philosophy",
-        readTime: "8",
-        image: "https://images.unsplash.com/photo-1509316785289-025f5b846b35?q=80&w=1200&auto=format&fit=crop"
-    },
-    {
-        id: "mock-2",
-        title: "The Art of Slow Travel",
-        summary: "Moving through landscapes with intention, favoring quality of experience over quantity of stops.",
-        category: "Guides",
-        readTime: "12",
-        image: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?q=80&w=1200&auto=format&fit=crop"
-    },
-    {
-        id: "mock-3",
-        title: "Sanctuaries of Architecture",
-        summary: "Exploring hotels that are more than just stays; they are sculptural masterpieces of comfort.",
-        category: "Design",
-        readTime: "10",
-        image: "https://images.unsplash.com/photo-1566073771259-6a8506099945?q=80&w=1200&auto=format&fit=crop"
-    }
-];
+import { BlogPost } from "@/lib/notion";
 
-// We wrap the component logic to allow for server/client hybrid if needed, 
-// but for simplicity and since we want animations on scroll, we keep it client-side for now 
-// or use a wrapper. Next.js 13+ RSC can still be used if we fetch outside.
-
-export default function OurInsight() {
-    // In a real scenario, you'd fetch this in a parent RSC and pass it down, 
-    // or use a client-side fetch. For the sake of adding animations to the current structure:
-    const posts = mockPosts;
-    const isLive = false;
+export default function OurInsight({ posts }: { posts: BlogPost[] }) {
+    const isLive = posts.length > 0;
 
     const containerVariants = {
         hidden: { opacity: 0 },
@@ -80,8 +47,9 @@ export default function OurInsight() {
                         <h2 className={styles.title}>Our Insight</h2>
                     </motion.div>
                     <motion.div className={styles.headerRight} variants={itemVariants}>
-                        <p>Stories of silence, architecture, and the transformative power of a journey well-taken.</p>
-                        {!isLive && <p className={styles.previewTag}>Preview Mode</p>}
+                        <p>A closer look at Indonesia.
+                            Through places, people, and journeys that stay with you.</p>
+                        {!isLive && <p className={styles.previewTag}>No published stories found</p>}
                     </motion.div>
                 </motion.div>
 
@@ -95,22 +63,41 @@ export default function OurInsight() {
                 >
                     {posts.map((post) => (
                         <motion.div key={post.id} className={styles.card} variants={itemVariants}>
-                            <div className={styles.imageWrapper}>
-                                <img src={post.image} alt={post.title} className={styles.image} />
-                                <span className={styles.categoryBadge}>{post.category}</span>
-                            </div>
+                            <Link href={`/${post.slug}`} className={styles.imageLink}>
+                                <div className={styles.imageWrapper}>
+                                    <img src={post.cover} alt={post.title} className={styles.image} />
+                                    <span className={styles.categoryBadge}>{post.category}</span>
+                                </div>
+                            </Link>
                             <div className={styles.cardBody}>
-                                <h3 className={styles.cardTitle}>{post.title}</h3>
-                                <p className={styles.cardSummary}>{post.summary}</p>
+                                <Link href={`/${post.slug}`} className={styles.titleLink}>
+                                    <h3 className={styles.cardTitle}>{post.title}</h3>
+                                </Link>
+                                <p className={styles.cardSummary}>{post.description}</p>
                                 <div className={styles.cardFooter}>
-                                    <span className={styles.readTime}>{post.readTime} MIN READ</span>
-                                    <Link href={isLive ? `/journal/${post.id}` : "#"} className={styles.readLink}>
-                                        READ STORY
+                                    <span className={styles.readTime}>
+                                        {new Date(post.date).toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" })}
+                                    </span>
+                                    <Link href={`/${post.slug}`} className={styles.readLink}>
+                                        Read More →
                                     </Link>
                                 </div>
                             </div>
                         </motion.div>
                     ))}
+                </motion.div>
+
+                {/* More Link */}
+                <motion.div
+                    className={styles.moreContainer}
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: 0.5, duration: 0.8 }}
+                >
+                    <Link href="/blog" className={styles.moreLink}>
+                        More Insight
+                    </Link>
                 </motion.div>
             </div>
         </section>
