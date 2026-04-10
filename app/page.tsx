@@ -1,5 +1,5 @@
 import HeroSection from "@/components/HeroSection";
-import FeaturedDestinations from "@/components/FeaturedDestinations";
+import DestinationShowcase from "@/components/DestinationShowcase";
 import Philosophy from "@/components/Philosophy";
 import OurInsight from "@/components/OurInsight";
 import { getBlogPosts } from "@/lib/notion";
@@ -11,7 +11,7 @@ export default async function Home() {
   return (
     <>
       <HeroSection />
-      <FeaturedDestinations />
+      <DestinationShowcase />
       <Philosophy />
       <OurInsight posts={posts} />
     </>

@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import { useState, useEffect } from "react";
+import { useState, useEffect, Suspense } from "react";
 import { Search, X, Menu } from "lucide-react";
 import styles from "./Navbar.module.css";
 
@@ -12,14 +12,13 @@ const navLinks = [
     { href: "/blog", label: "Blog" },
 ];
 
-export default function Navbar() {
+function NavbarSearch() {
     const pathname = usePathname();
     const router = useRouter();
     const searchParams = useSearchParams();
     
     const [searchFocused, setSearchFocused] = useState(false);
     const [searchValue, setSearchValue] = useState("");
-    const [menuOpen, setMenuOpen] = useState(false);
 
     const isBlogPage = pathname === "/blog";
     
@@ -50,6 +49,47 @@ export default function Navbar() {
     };
 
     return (
+        <form 
+            onSubmit={handleSearch}
+            className={`${styles.searchBox} ${searchFocused || searchValue ? styles.searchBoxFocused : ""}`}
+        >
+            <Search
+                className={`${styles.searchIcon} ${searchFocused ? styles.searchIconFocused : ""}`}
+            />
+            <input
+                type="text"
+                placeholder={isBlogPage ? "Search..." : "Search destinations..."}
+                value={searchValue}
+                onChange={(e) => setSearchValue(e.target.value)}
+                onFocus={() => setSearchFocused(true)}
+                onBlur={() => { if (!searchValue) setSearchFocused(false); }}
+                onKeyDown={handleKeyDown}
+                className={styles.searchInput}
+            />
+            {searchValue && (
+                <button
+                    type="button"
+                    className={styles.clearBtn}
+                    onClick={() => { 
+                        setSearchValue(""); 
+                        setSearchFocused(false);
+                        if (pathname === "/destinations" || pathname === "/blog") {
+                            router.push(pathname);
+                        }
+                    }}
+                >
+                    <X size={13} />
+                </button>
+            )}
+        </form>
+    );
+}
+
+export default function Navbar() {
+    const pathname = usePathname();
+    const [menuOpen, setMenuOpen] = useState(false);
+
+    return (
         <header className={styles.header}>
             <nav className={styles.nav}>
 
@@ -77,39 +117,9 @@ export default function Navbar() {
 
                 {/* Right */}
                 <div className={styles.right}>
-                    <form 
-                        onSubmit={handleSearch}
-                        className={`${styles.searchBox} ${searchFocused || searchValue ? styles.searchBoxFocused : ""}`}
-                    >
-                        <Search
-                            className={`${styles.searchIcon} ${searchFocused ? styles.searchIconFocused : ""}`}
-                        />
-                        <input
-                            type="text"
-                            placeholder={isBlogPage ? "Search..." : "Search destinations..."}
-                            value={searchValue}
-                            onChange={(e) => setSearchValue(e.target.value)}
-                            onFocus={() => setSearchFocused(true)}
-                            onBlur={() => { if (!searchValue) setSearchFocused(false); }}
-                            onKeyDown={handleKeyDown}
-                            className={styles.searchInput}
-                        />
-                        {searchValue && (
-                            <button
-                                type="button"
-                                className={styles.clearBtn}
-                                onClick={() => { 
-                                    setSearchValue(""); 
-                                    setSearchFocused(false);
-                                    if (pathname === "/destinations" || pathname === "/blog") {
-                                        router.push(pathname);
-                                    }
-                                }}
-                            >
-                                <X size={13} />
-                            </button>
-                        )}
-                    </form>
+                    <Suspense fallback={<div className={styles.searchBox}><Search className={styles.searchIcon} /></div>}>
+                        <NavbarSearch />
+                    </Suspense>
 
                     <button
                         className={styles.hamburger}

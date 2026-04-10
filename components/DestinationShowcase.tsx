@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { ShieldCheck } from "lucide-react";
 import { motion } from "framer-motion";
-import styles from "./FeaturedDestinations.module.css";
+import styles from "./DestinationShowcase.module.css";
 
 const destinations = [
     {
@@ -35,7 +35,7 @@ const destinations = [
     },
 ];
 
-export default function FeaturedDestinations() {
+export default function DestinationShowcase() {
     const containerVariants = {
         hidden: { opacity: 0 },
         visible: {
