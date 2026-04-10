@@ -4,10 +4,11 @@ import Philosophy from "@/components/Philosophy";
 import OurInsight from "@/components/OurInsight";
 import { getBlogPosts } from "@/lib/notion";
 
+export const dynamic = 'force-dynamic';
 export default async function Home() {
   const allPosts = await getBlogPosts();
   const posts = allPosts.slice(0, 3);
-  
+
   return (
     <>
       <HeroSection />
