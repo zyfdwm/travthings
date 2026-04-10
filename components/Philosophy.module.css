@@ -1,0 +1,73 @@
+.philosophy {
+  padding: 120px 24px;
+  background-color: #f6f9fc;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.container {
+  max-width: 900px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.quoteIcon {
+  color: #0d6efd;
+  margin-bottom: 40px;
+  opacity: 0.8;
+}
+
+.quoteText {
+  font-family: var(--font-heading);
+  font-size: 48px;
+  line-height: 1.25;
+  color: #1e293b;
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  margin: 0 0 32px 0;
+}
+
+.highlight {
+  font-style: italic;
+  font-weight: 700;
+  color: #0f172a;
+}
+
+.attribution {
+  font-family: var(--font-body);
+  font-size: 13px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: #94a3b8;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.attribution::before {
+  content: "";
+  display: inline-block;
+  width: 24px;
+  height: 1px;
+  background-color: #cbd5e1;
+}
+
+@media (max-width: 768px) {
+  .philosophy {
+    padding: 80px 24px;
+  }
+
+  .quoteText {
+    font-size: 32px;
+  }
+
+  .quoteIcon {
+    margin-bottom: 24px;
+  }
+}

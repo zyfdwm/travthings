@@ -2,10 +2,11 @@
     position: relative;
     width: 100%;
     height: calc(100vh - 64px);
-    min-height: 580px;
+    min-height: 620px;
     overflow: hidden;
     display: flex;
     align-items: center;
+    justify-content: center;
 }
 
 .bg {
@@ -13,142 +14,153 @@
     inset: 0;
     background-image: url('https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1800&q=90');
     background-size: cover;
-    background-position: center center;
+    background-position: center 30%;
     z-index: 0;
+    transform: scale(1.05); /* Slight zoom for depth */
 }
 
-/* Very light overlay - just enough to read text, background stays vivid */
+/* Neutral dark overlay for white text readability */
 .overlay {
     position: absolute;
     inset: 0;
-    background: linear-gradient(105deg,
-            rgba(255, 255, 255, 0.88) 0%,
-            rgba(255, 255, 255, 0.72) 28%,
-            rgba(255, 255, 255, 0.18) 55%,
-            rgba(255, 255, 255, 0.0) 100%);
+    background: linear-gradient(to bottom,
+            rgba(0, 0, 0, 0.4) 0%,
+            rgba(0, 0, 0, 0.2) 40%,
+            rgba(255, 255, 255, 0) 100%);
     z-index: 1;
 }
 
 .content {
     position: relative;
     z-index: 2;
-    max-width: 1200px;
+    max-width: 900px;
     margin: 0 auto;
-    padding: 0 48px;
+    padding: 0 24px;
     width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
 }
 
 /* Badge */
 .badge {
     display: inline-flex;
     align-items: center;
-    background: #0f5ea3;
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(8px);
     color: #ffffff;
     font-family: var(--font-body);
-    font-size: 10px;
+    font-size: 11px;
     font-weight: 700;
-    letter-spacing: 1.8px;
+    letter-spacing: 2px;
     text-transform: uppercase;
-    padding: 5px 14px;
+    padding: 6px 16px;
     border-radius: 999px;
-    margin-bottom: 18px;
+    margin-bottom: 24px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
 /* Heading */
-.headingBlack {
-    font-family: var(--font-heading);
-    font-size: clamp(48px, 7vw, 80px);
-    font-weight: 800;
-    line-height: 1.05;
-    color: #111111;
-    letter-spacing: -3px;
-    display: block;
-    margin-bottom: 0;
+.headingWrapper {
+    margin-bottom: 24px;
 }
 
-.headingBlue {
+.heading {
     font-family: var(--font-heading);
-    font-size: clamp(48px, 7vw, 80px);
+    font-size: clamp(52px, 8vw, 92px);
     font-weight: 800;
-    /* font-style: italic; */
-    line-height: 1.05;
-    color: #0f5ea3;
-    letter-spacing: -3px;
-    display: block;
-    margin-bottom: 22px;
+    line-height: 1.0;
+    color: #ffffff;
+    letter-spacing: -4px;
+    margin: 0;
+}
+
+.headingAccent {
+    color: #ffffff;
+    position: relative;
 }
 
 /* Subtitle */
 .subtitle {
     font-family: var(--font-body);
-    font-size: 15px;
-    color: #444444;
-    line-height: 1.65;
-    max-width: 340px;
-    margin-bottom: 36px;
+    font-size: clamp(16px, 2vw, 19px);
+    color: rgba(255, 255, 255, 0.85);
+    line-height: 1.6;
+    max-width: 600px;
+    margin: 0 auto 48px;
     font-weight: 400;
 }
 
-/* CTA Bar */
+/* CTA Bar - GLASSMORPHISM */
 .ctaBar {
-    display: inline-flex;
+    display: flex;
     align-items: center;
-    background: #ffffff78;
-    border-radius: 20px;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.14);
-    height: 72px;
-    max-width: 460px;
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    border-radius: 999px; /* Capsule shape */
+    height: 84px;
     width: 100%;
-    padding: 8px 8px 8px 20px;
-    gap: 12px;
+    max-width: 540px;
+    padding: 8px 10px 8px 32px;
+    gap: 20px;
+    box-shadow: 0 12px 48px rgba(0, 0, 0, 0.15);
 }
 
 .ctaLeft {
     display: flex;
     align-items: center;
-    gap: 12px;
+    gap: 16px;
     flex: 1;
-    overflow: hidden;
 }
 
-.pinIcon {
-    color: #888888;
+.iconCircle {
+    width: 44px;
+    height: 44px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #ffffff;
+}
+
+.compassIcon {
     flex-shrink: 0;
-    width: 16px;
-    height: 16px;
 }
 
 .ctaText {
     display: flex;
     flex-direction: column;
-    gap: 1px;
-    overflow: hidden;
-    min-width: 0;
+    gap: 2px;
+    text-align: left;
 }
 
 .ctaLabel {
     font-family: var(--font-body);
-    font-size: 9.5px;
-    font-weight: 700;
-    letter-spacing: 1.4px;
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 1.5px;
     text-transform: uppercase;
-    color: #aaaaaa;
+    color: rgba(255, 255, 255, 0.6);
     line-height: 1;
 }
 
 /* Ticker */
 .tickerWrapper {
-    height: 20px;
+    height: 24px;
     overflow: hidden;
     position: relative;
 }
 
 .tickerItem {
     font-family: var(--font-body);
-    font-size: 14px;
+    font-size: 17px;
     font-weight: 600;
-    color: #1a1a1a;
-    height: 20px;
+    color: #ffffff;
+    height: 24px;
     display: flex;
     align-items: center;
     white-space: nowrap;
@@ -180,39 +192,31 @@
     animation: slideUp 2.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;
 }
 
-/* Explore Button */
+/* Explore Button - CIRCLE */
 .ctaButton {
     display: flex;
     align-items: center;
-    gap: 8px;
-    background: #1a5fa8;
+    justify-content: center;
+    background: #006699;
     color: #ffffff;
-    font-family: var(--font-body);
-    font-size: 15px;
-    font-weight: 700;
+    width: 66px;
+    height: 66px;
+    border-radius: 50%;
     border: none;
     cursor: pointer;
-    padding: 0 28px;
-    height: 100%;
     text-decoration: none;
-    transition: background 0.2s;
-    white-space: nowrap;
+    transition: all 0.3s cubic-bezier(0.23, 1, 0.32, 1);
     flex-shrink: 0;
-    border-radius: 14px;
+    box-shadow: 0 4px 12px rgba(0, 102, 153, 0.3);
 }
 
 .ctaButton:hover {
-    background: #0a4a80;
+    background: #0077b3;
+    transform: scale(1.05) rotate(-10deg);
 }
 
-.arrow {
-    font-size: 17px;
-    display: inline-block;
-    transition: transform 0.2s;
-}
-
-.ctaButton:hover .arrow {
-    transform: translateX(4px);
+.ctaButton:active {
+    transform: scale(0.95);
 }
 
 @media (max-width: 640px) {
@@ -221,6 +225,22 @@
     }
 
     .ctaBar {
-        max-width: 100%;
+        height: 76px;
+        padding: 6px 6px 6px 20px;
+        gap: 12px;
     }
-}
+
+    .ctaButton {
+        width: 60px;
+        height: 60px;
+    }
+
+    .heading {
+        letter-spacing: -2px;
+    }
+
+    .subtitle {
+        font-size: 15px;
+        margin-bottom: 32px;
+    }
+}

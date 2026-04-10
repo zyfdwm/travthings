@@ -17,7 +17,6 @@ export default function Navbar() {
     const [searchFocused, setSearchFocused] = useState(false);
     const [searchValue, setSearchValue] = useState("");
     const [menuOpen, setMenuOpen] = useState(false);
-
     return (
         <header className={styles.header}>
             <nav className={styles.nav}>

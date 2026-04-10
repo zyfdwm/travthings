@@ -2,6 +2,8 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
+import { motion } from "framer-motion";
+import { Compass, ArrowRight } from "lucide-react";
 import styles from "./HeroSection.module.css";
 
 const destinations = [
@@ -11,27 +13,10 @@ const destinations = [
     { label: "Yogyakarta, Indonesia", slug: "yogyakarta" },
 ];
 
-function PinIcon({ className }: { className?: string }) {
-    return (
-        <svg
-            className={className}
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-        >
-            <path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0 1 18 0z" />
-            <circle cx="12" cy="10" r="3" />
-        </svg>
-    );
-}
-
 export default function HeroSection() {
     const [index, setIndex] = useState(0);
     const [animKey, setAnimKey] = useState(0);
-
+    
     useEffect(() => {
         const interval = setInterval(() => {
             setIndex((prev) => (prev + 1) % destinations.length);
@@ -42,6 +27,20 @@ export default function HeroSection() {
 
     const current = destinations[index];
 
+    // Animation variants
+    const fadeIn = {
+        hidden: { opacity: 0, y: 30 },
+        visible: (i: number) => ({
+            opacity: 1,
+            y: 0,
+            transition: {
+                delay: i * 0.15,
+                duration: 1,
+                ease: [0.21, 0.45, 0.32, 0.9] as any,
+            },
+        }),
+    };
+
     return (
         <section className={styles.hero}>
             <div className={styles.bg} />
@@ -49,25 +48,57 @@ export default function HeroSection() {
 
             <div className={styles.content}>
                 {/* Badge */}
-                <span className={styles.badge}>Your Travel Partner</span>
+                <motion.span 
+                    className={styles.badge}
+                    initial="hidden"
+                    animate="visible"
+                    custom={0}
+                    variants={fadeIn}
+                >
+                    Your Travel Partner
+                </motion.span>
 
                 {/* Heading */}
-                <span className={styles.headingBlack}>Discover the</span>
-                <span className={styles.headingBlue}>Fluid Horizon.</span>
+                <motion.div
+                    initial="hidden"
+                    animate="visible"
+                    custom={1}
+                    variants={fadeIn}
+                    className={styles.headingWrapper}
+                >
+                    <h1 className={styles.heading}>
+                        Discover the <br />
+                        <span className={styles.headingAccent}>Fluid Horizon.</span>
+                    </h1>
+                </motion.div>
 
                 {/* Subtitle */}
-                <p className={styles.subtitle}>
+                <motion.p 
+                    className={styles.subtitle}
+                    initial="hidden"
+                    animate="visible"
+                    custom={2}
+                    variants={fadeIn}
+                >
                     Beyond the grid of standard travel booking. We curate
                     experiences that breathe, shift, and inspire the
                     modern explorer.
-                </p>
+                </motion.p>
 
                 {/* CTA Bar */}
-                <div className={styles.ctaBar}>
+                <motion.div 
+                    className={styles.ctaBar}
+                    initial="hidden"
+                    animate="visible"
+                    custom={3}
+                    variants={fadeIn}
+                >
                     <div className={styles.ctaLeft}>
-                        <PinIcon className={styles.pinIcon} />
+                        <div className={styles.iconCircle}>
+                            <Compass className={styles.compassIcon} size={18} />
+                        </div>
                         <div className={styles.ctaText}>
-                            <span className={styles.ctaLabel}>Where to go?</span>
+                            <span className={styles.ctaLabel}>Destination</span>
                             <div className={styles.tickerWrapper}>
                                 <div
                                     key={animKey}
@@ -83,10 +114,9 @@ export default function HeroSection() {
                         href={`/destinations?category=${current.slug}`}
                         className={styles.ctaButton}
                     >
-                        Explore Now
-                        <span className={styles.arrow}>→</span>
+                        <ArrowRight size={24} />
                     </Link>
-                </div>
+                </motion.div>
             </div>
         </section>
     );
