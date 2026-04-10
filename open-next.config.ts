@@ -1,9 +1,7 @@
-import { defineCloudflareConfig } from "@opennextjs/cloudflare";
+import type { OpenNextConfig } from "@opennextjs/cloudflare";
 
-// Extract the type from the helper function's return type to bypass namespace collision
-type Config = ReturnType<typeof defineCloudflareConfig>;
-
-const config = {
+// @ts-ignore - OpenNextConfig is incorrectly identified as a namespace in some environments
+const config: OpenNextConfig = {
     default: {
         override: {
             wrapper: "cloudflare-node",
@@ -25,6 +23,6 @@ const config = {
             queue: "dummy",
         },
     },
-} satisfies Config;
+};
 
-export default config as Config;
+export default config;
