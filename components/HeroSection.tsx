@@ -13,7 +13,7 @@ const destinations = [
     { label: "Yogyakarta, Indonesia", slug: "yogyakarta" },
 ];
 
-export default function HeroSection() {
+export default function HeroSection({ minimal = false, videoSrc }: { minimal?: boolean, videoSrc?: string }) {
     const [index, setIndex] = useState(0);
     const [animKey, setAnimKey] = useState(0);
     
@@ -43,7 +43,18 @@ export default function HeroSection() {
 
     return (
         <section className={styles.hero}>
-            <div className={styles.bg} />
+            <div className={styles.bg}>
+                {videoSrc && (
+                    <video 
+                        src={videoSrc}
+                        autoPlay
+                        muted
+                        loop
+                        playsInline
+                        className={styles.video}
+                    />
+                )}
+            </div>
             <div className={styles.overlay} />
 
             <div className={styles.content}>
@@ -86,37 +97,39 @@ export default function HeroSection() {
                 </motion.p>
 
                 {/* CTA Bar */}
-                <motion.div 
-                    className={styles.ctaBar}
-                    initial="hidden"
-                    animate="visible"
-                    custom={3}
-                    variants={fadeIn}
-                >
-                    <div className={styles.ctaLeft}>
-                        <div className={styles.iconCircle}>
-                            <Compass className={styles.compassIcon} size={18} />
-                        </div>
-                        <div className={styles.ctaText}>
-                            <span className={styles.ctaLabel}>Destination</span>
-                            <div className={styles.tickerWrapper}>
-                                <div
-                                    key={animKey}
-                                    className={`${styles.tickerItem} ${styles.animate}`}
-                                >
-                                    {current.label}
+                {!minimal && (
+                    <motion.div 
+                        className={styles.ctaBar}
+                        initial="hidden"
+                        animate="visible"
+                        custom={3}
+                        variants={fadeIn}
+                    >
+                        <div className={styles.ctaLeft}>
+                            <div className={styles.iconCircle}>
+                                <Compass className={styles.compassIcon} size={18} />
+                            </div>
+                            <div className={styles.ctaText}>
+                                <span className={styles.ctaLabel}>Destination</span>
+                                <div className={styles.tickerWrapper}>
+                                    <div
+                                        key={animKey}
+                                        className={`${styles.tickerItem} ${styles.animate}`}
+                                    >
+                                        {current.label}
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
 
-                    <Link
-                        href={`/destinations?category=${current.slug}`}
-                        className={styles.ctaButton}
-                    >
-                        <ArrowRight size={24} />
-                    </Link>
-                </motion.div>
+                        <Link
+                            href={`/destinations?category=${current.slug}`}
+                            className={styles.ctaButton}
+                        >
+                            <ArrowRight size={24} />
+                        </Link>
+                    </motion.div>
+                )}
             </div>
         </section>
     );

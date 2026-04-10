@@ -16,7 +16,8 @@
     background-size: cover;
     background-position: center 30%;
     z-index: 0;
-    transform: scale(1.05); /* Slight zoom for depth */
+    transform: scale(1.05);
+    /* Slight zoom for depth */
 }
 
 /* Neutral dark overlay for white text readability */
@@ -100,7 +101,8 @@
     backdrop-filter: blur(24px);
     -webkit-backdrop-filter: blur(24px);
     border: 1px solid rgba(255, 255, 255, 0.25);
-    border-radius: 999px; /* Capsule shape */
+    border-radius: 999px;
+    /* Capsule shape */
     height: 84px;
     width: 100%;
     max-width: 540px;
@@ -243,4 +245,4 @@
         font-size: 15px;
         margin-bottom: 32px;
     }
-}
+}
