@@ -18,6 +18,9 @@ const RichText = ({ text }: { text: any[] }) => {
                 if (annotations.strikethrough) classNames.push(styles.strikethrough);
                 if (annotations.underline) classNames.push(styles.underline);
                 if (annotations.code) classNames.push(styles.inlineCode);
+                if (annotations.color && annotations.color !== "default") {
+                    classNames.push(styles[annotations.color] || annotations.color);
+                }
 
                 const element = (
                     <span key={i} className={classNames.join(" ")}>
@@ -90,8 +93,25 @@ export default function NotionRenderer({ blocks }: NotionRendererProps) {
                     case "quote":
                         return (
                             <blockquote key={id} className={styles.quote}>
-                                <RichText text={value.rich_text} />
+                                <div className={styles.quoteText}>
+                                    <RichText text={value.rich_text} />
+                                </div>
                             </blockquote>
+                        );
+                    case "callout":
+                        const isEmoji = value.icon?.type === "emoji";
+                        const iconUrl = value.icon?.type === "external" ? value.icon.external?.url : (value.icon?.type === "file" ? value.icon.file?.url : "");
+                        const bgColorClass = value.color && value.color !== 'default' ? styles[`callout_${value.color}`] : styles.callout_default;
+                        
+                        return (
+                            <div key={id} className={`${styles.callout} ${bgColorClass || ''}`}>
+                                <div className={styles.calloutIcon}>
+                                    {isEmoji ? value.icon.emoji : (iconUrl ? <img src={iconUrl} alt="icon"/> : "💡")}
+                                </div>
+                                <div className={styles.calloutText}>
+                                    <RichText text={value.rich_text} />
+                                </div>
+                            </div>
                         );
                     case "image":
                         const imageUrl = value.type === "external" ? value.external.url : value.file.url;

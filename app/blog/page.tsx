@@ -39,7 +39,7 @@ export default async function BlogPage() {
                 <BlogMainHero
                     mediaUrl="https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?q=80&w=2000&auto=format&fit=crop"
                     badge="Blog"
-                    title={<>Some Places Don't Make the List — They Make the Journey.</>}
+                    title={<>Let's Make the Journey.</>}
                     description="A curated space for the curious traveler. Deeper context, quieter discoveries, and editorial perspectives you won't find anywhere else."
                 />
                 <div className={styles.empty}>
@@ -73,7 +73,7 @@ export default async function BlogPage() {
             <BlogMainHero
                 mediaUrl="https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?q=80&w=2000&auto=format&fit=crop"
                 badge="Blog"
-                title={<>Some Places Don't Make the List — They Make the Journey.</>}
+                title={<>Let's Make the Journey.</>}
                 description="A curated space for the curious traveler. Deeper context, quieter discoveries, and editorial perspectives you won't find anywhere else."
             />
 

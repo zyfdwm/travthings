@@ -29,6 +29,7 @@
     padding-bottom: 4px;
     -ms-overflow-style: none;
     scrollbar-width: none;
+    width: 100%;
 }
 
 .pillContainer::-webkit-scrollbar {
@@ -47,6 +48,7 @@
     cursor: pointer;
     white-space: nowrap;
     transition: all 0.2s ease;
+    flex-shrink: 0;
 }
 
 .pill:hover {
