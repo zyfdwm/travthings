@@ -11,6 +11,7 @@ const destinations = [
         slug: "?category=jakarta",
         image: "https://res.cloudinary.com/dgz4njcvb/image/upload/v1775839851/Explore_Jakarta_cfyo7b.jpg?q=80&w=1200&auto=format&fit=crop",
         type: "feature",
+        description: "City of contrasts and hidden gems",
     },
     {
         title: "Bali",
@@ -18,6 +19,7 @@ const destinations = [
         image: "https://res.cloudinary.com/dgz4njcvb/image/upload/v1775840218/steptodown.com926926_yzche5.jpg?q=80&w=1200&auto=format&fit=crop",
         type: "small",
         isFeatured: false,
+        description: "Beaches, temples, and soul",
     },
     {
         title: "Bandung",
@@ -25,6 +27,7 @@ const destinations = [
         slug: "?category=bandung",
         image: "https://res.cloudinary.com/dgz4njcvb/image/upload/v1775840320/steptodown.com912575_svnoje.jpg?q=80&w=1200&auto=format&fit=crop",
         type: "bottom-left",
+        description: "Cool air, creative energy",
     },
     {
         title: "Yogyakarta",
@@ -32,6 +35,7 @@ const destinations = [
         slug: "?category=yogyakarta",
         image: "https://res.cloudinary.com/dgz4njcvb/image/upload/v1775840482/steptodown.com996184_s8flth.jpg?q=80&w=1200&auto=format&fit=crop",
         type: "bottom-wide",
+        description: "Heritage, art, and tradition",
     },
 ];
 
@@ -98,7 +102,7 @@ export default function DestinationShowcase() {
                             <div className={styles.cardContent}>
                                 <p className={styles.cardCategory}>{destinations[0].category}</p>
                                 <h3 className={styles.cardTitle}>{destinations[0].title}</h3>
-                                {/* <span className={styles.cardLink}>Explore Retreat</span> */}
+                                <p className={styles.cardDescription}>{destinations[0].description}</p>
                             </div>
                         </Link>
                     </motion.div>
@@ -114,6 +118,7 @@ export default function DestinationShowcase() {
                             <div className={styles.cardOverlay} />
                             <div className={styles.cardContent}>
                                 <h3 className={styles.cardTitleSmall}>{destinations[1].title}</h3>
+                                <p className={styles.cardDescriptionSmall}>{destinations[1].description}</p>
                             </div>
                         </Link>
                     </motion.div>
@@ -139,6 +144,7 @@ export default function DestinationShowcase() {
                             <div className={styles.cardOverlay} />
                             <div className={styles.cardContent}>
                                 <h3 className={styles.cardTitleSmall}>{destinations[2].title}</h3>
+                                <p className={styles.cardDescriptionSmall}>{destinations[2].description}</p>
                             </div>
                         </Link>
                     </motion.div>
@@ -153,6 +159,7 @@ export default function DestinationShowcase() {
                             <div className={styles.cardOverlay} />
                             <div className={styles.cardContent}>
                                 <h3 className={styles.cardTitleSmall}>{destinations[3].title}</h3>
+                                <p className={styles.cardDescriptionSmall}>{destinations[3].description}</p>
                             </div>
                         </Link>
                     </motion.div>

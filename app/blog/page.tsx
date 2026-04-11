@@ -37,7 +37,7 @@ export default async function BlogPage() {
         return (
             <main className={styles.container}>
                 <BlogMainHero
-                    mediaUrl="https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?q=80&w=2000&auto=format&fit=crop"
+                    mediaUrl="https://res.cloudinary.com/dgz4njcvb/image/upload/v1775920048/steptodown.com423139_qgdmdt.jpg"
                     badge="Blog"
                     title={<>Let's Make the Journey.</>}
                     description="A curated space for the curious traveler. Deeper context, quieter discoveries, and editorial perspectives you won't find anywhere else."
@@ -71,7 +71,7 @@ export default async function BlogPage() {
     return (
         <main className={styles.container}>
             <BlogMainHero
-                mediaUrl="https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?q=80&w=2000&auto=format&fit=crop"
+                mediaUrl="https://res.cloudinary.com/dgz4njcvb/image/upload/v1775920048/steptodown.com423139_qgdmdt.jpg"
                 badge="Blog"
                 title={<>Let's Make the Journey.</>}
                 description="A curated space for the curious traveler. Deeper context, quieter discoveries, and editorial perspectives you won't find anywhere else."

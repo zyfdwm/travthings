@@ -6,7 +6,7 @@ export default function BlogHero() {
         <section className={styles.hero}>
             <div className={styles.container}>
                 <h1 className={styles.title}>
-                    Some Places Don't Make the List — They Make the Journey.
+                    Let's Make the Journey.
                 </h1>
                 <p className={styles.subtitle}>
                     A curated space for the curious traveler. Deeper context, quieter discoveries, and editorial perspectives you won't find anywhere else.

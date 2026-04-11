@@ -21,7 +21,7 @@ const interTight = Inter_Tight({
 export const metadata: Metadata = {
   title: "Travel Things | Curated Destinations & Tailored Itineraries",
   description:
-    "Discover expert-verified destinations and bespoke travel itineraries with Travel Things. Experience the world at your own pace with our premium concierge service.",
+    "Discover expert-verified destinations and travel itineraries with Travel Things. Experience the world at your own pace with our premium concierge service.",
 };
 
 export default function RootLayout({
