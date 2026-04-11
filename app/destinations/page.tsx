@@ -14,42 +14,21 @@ interface DestinationsPageProps {
     searchParams: Promise<{ category?: string; search?: string; page?: string }>;
 }
 
-export async function generateMetadata({ searchParams }: DestinationsPageProps): Promise<Metadata> {
-    const { category } = await searchParams;
+export const metadata: Metadata = {
+    title: "Destinations | Curated Destinations & Tailored Itineraries",
+    description: "Discover Jakarta, Bandung, Bali, and more. Hand-picked spots and expert travel tips curated by the Travel Things team.",
+};
 
-    // Logic for Destination Name
-    let destinationName = "Indonesia";
-    if (category && category.toLowerCase() !== "all destinations") {
-        destinationName = category.charAt(0).toUpperCase() + category.slice(1);
-    }
-
-    return {
-        title: `${destinationName} Destinations | Curated Destinations & Tailored Itineraries`,
-        description: `Plan your trip to ${destinationName}. Discover hand-picked spots, expert tips, and tailored travel plans curated by the Travel Things team.`,
-    };
-}
-
-export default async function DestinationsPage({ searchParams }: DestinationsPageProps) {
-    const { category, search, page } = await searchParams;
-    const currentPage = Number(page) || 1;
+export default async function DestinationsPage() {
+    const currentPage = 1;
     const itemsPerPage = 6;
 
     // Fetch real destinations from Notion
     const allDestinations = await getDestinations();
 
-    const selectedCategory = category ? category.charAt(0).toUpperCase() + category.slice(1) : "All Destinations";
-    const searchQuery = search?.toLowerCase() || "";
 
-    const filteredDestinations = allDestinations.filter(item => {
-        const matchesCategory = selectedCategory === "All Destinations" || item.category === selectedCategory;
-        const matchesSearch = !searchQuery ||
-            item.title.toLowerCase().includes(searchQuery) ||
-            item.location.toLowerCase().includes(searchQuery) ||
-            item.category.toLowerCase().includes(searchQuery) ||
-            item.description.toLowerCase().includes(searchQuery);
-
-        return matchesCategory && matchesSearch;
-    });
+    const selectedCategory = "All Destinations";
+    const filteredDestinations = allDestinations;
 
     // Pagination logic
     const totalPages = Math.ceil(filteredDestinations.length / itemsPerPage);
@@ -94,8 +73,6 @@ export default async function DestinationsPage({ searchParams }: DestinationsPag
                         <PaginationWrapper
                             totalPages={totalPages}
                             currentPage={currentPage}
-                            category={category}
-                            search={search}
                         />
                     </div>
                 )}
@@ -106,21 +83,13 @@ export default async function DestinationsPage({ searchParams }: DestinationsPag
 
 function PaginationWrapper({
     totalPages,
-    currentPage,
-    category,
-    search
+    currentPage
 }: {
     totalPages: number,
     currentPage: number,
-    category?: string,
-    search?: string
 }) {
     const getBaseUrl = (page: number) => {
-        const params = new URLSearchParams();
-        if (category) params.set("category", category);
-        if (search) params.set("search", search);
-        params.set("page", page.toString());
-        return `/destinations?${params.toString()}`;
+        return `/destinations?page=${page.toString()}`;
     };
 
     return (

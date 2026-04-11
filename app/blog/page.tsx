@@ -20,40 +20,18 @@ export const metadata: Metadata = {
     description: "Get the latest travel tips, trends, and hidden gems from our expert contributors.",
 };
 
-export default async function BlogPage({ searchParams }: BlogPageProps) {
-    const params = await searchParams;
-    const currentPage = Number(params.page) || 1;
-    const searchQuery = params.search?.toLowerCase() || "";
+export default async function BlogPage() {
+    const currentPage = 1;
+    const searchQuery = "";
     const postsPerPage = 6;
 
     // Fetch all published posts
     const allPosts = await getBlogPosts();
 
-    // Filter posts if there is a search query
-    const filteredPosts = searchQuery
-        ? allPosts.filter(post =>
-            post.title.toLowerCase().includes(searchQuery) ||
-            post.description.toLowerCase().includes(searchQuery) ||
-            post.category.toLowerCase().includes(searchQuery) ||
-            post.tags.some(tag => tag.toLowerCase().includes(searchQuery))
-        )
-        : allPosts;
 
-    if (filteredPosts.length === 0 && searchQuery) {
-        return (
-            <main className={styles.container}>
-                <BlogMainHero
-                    mediaUrl="https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?q=80&w=2000&auto=format&fit=crop"
-                    badge="Search Results"
-                    title={<>Results for <span>"{params.search}"</span></>}
-                    description={`We couldn't find any articles matching your search. Try a different keyword.`}
-                />
-                <div className={styles.empty}>
-                    <p>No matches found.</p>
-                </div>
-            </main>
-        );
-    }
+    const filteredPosts = allPosts;
+
+
 
     if (allPosts.length === 0) {
         return (
@@ -94,9 +72,9 @@ export default async function BlogPage({ searchParams }: BlogPageProps) {
         <main className={styles.container}>
             <BlogMainHero
                 mediaUrl="https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?q=80&w=2000&auto=format&fit=crop"
-                badge={searchQuery ? "Search Results" : "Blog"}
-                title={searchQuery ? <>Results for <span>"{params.search}"</span></> : <>Some Places Don't Make the List — They Make the Journey.</>}
-                description={searchQuery ? `Showing ${filteredPosts.length} matches for your query.` : "A curated space for the curious traveler. Deeper context, quieter discoveries, and editorial perspectives you won't find anywhere else."}
+                badge="Blog"
+                title={<>Some Places Don't Make the List — They Make the Journey.</>}
+                description="A curated space for the curious traveler. Deeper context, quieter discoveries, and editorial perspectives you won't find anywhere else."
             />
 
             {/* Show Featured Post strictly if it exists, we're on page 1, and NOT searching */}
