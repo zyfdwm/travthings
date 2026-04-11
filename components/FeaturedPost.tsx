@@ -8,9 +8,9 @@ export default function FeaturedPost({ post }: { post: BlogPost }) {
         <section className={styles.section}>
             <div className={styles.container}>
                 <div className={styles.card}>
-                    <div className={styles.imageWrapper}>
+                    <Link href={`/${post.slug}`} className={styles.imageWrapper}>
                         <img src={post.cover} alt={post.title} className={styles.image} />
-                    </div>
+                    </Link>
                     <div className={styles.content}>
                         <div className={styles.meta}>
                             <span className={styles.badge}>Featured Post</span>
@@ -23,7 +23,9 @@ export default function FeaturedPost({ post }: { post: BlogPost }) {
                                 })}
                             </time>
                         </div>
-                        <h2 className={styles.title}>{post.title}</h2>
+                        <Link href={`/${post.slug}`} className={styles.titleLink}>
+                            <h2 className={styles.title}>{post.title}</h2>
+                        </Link>
                         <p className={styles.summary}>{post.description}</p>
                         <Link href={`/${post.slug}`} className={styles.readMore}>
                             Read More <span className={styles.arrow}>→</span>

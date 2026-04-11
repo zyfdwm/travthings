@@ -140,6 +140,14 @@ export async function getPageBlocks(pageId: string) {
         cursor = next_cursor;
     }
 
+    // Fetch children for tables and toggles
+    const childRequests = blocks.map(async (block) => {
+        if (block.has_children && (block.type === "table" || block.type === "toggle")) {
+            block[block.type].children = await getPageBlocks(block.id);
+        }
+    });
+    await Promise.all(childRequests);
+
     return blocks;
 }
 

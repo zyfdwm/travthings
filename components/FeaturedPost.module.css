@@ -26,6 +26,7 @@
     flex: 1.4;
     position: relative;
     overflow: hidden;
+    display: block;
 }
 
 .image {
@@ -83,6 +84,16 @@
     color: #1a243d;
     margin: 0 0 24px 0;
     letter-spacing: -0.02em;
+    transition: color 0.3s ease;
+}
+
+.titleLink {
+    text-decoration: none;
+    color: inherit;
+}
+
+.titleLink:hover .title {
+    color: #006699;
 }
 
 .summary {

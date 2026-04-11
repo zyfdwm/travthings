@@ -129,6 +129,39 @@ export default function NotionRenderer({ blocks }: NotionRendererProps) {
                                 )}
                             </figure>
                         );
+                    case "table":
+                        return (
+                            <div key={id} className={styles.tableWrapper}>
+                                <table className={styles.table}>
+                                    <tbody>
+                                        {value.children?.map((row: any, rowIndex: number) => (
+                                            <tr key={row.id}>
+                                                {row.table_row?.cells?.map((cell: any, cellIndex: number) => {
+                                                    const isHeader = (value.has_column_header && rowIndex === 0) || (value.has_row_header && cellIndex === 0);
+                                                    const Tag = isHeader ? "th" : "td";
+                                                    return (
+                                                        <Tag key={cellIndex}>
+                                                            <RichText text={cell} />
+                                                        </Tag>
+                                                    );
+                                                })}
+                                            </tr>
+                                        ))}
+                                    </tbody>
+                                </table>
+                            </div>
+                        );
+                    case "toggle":
+                        return (
+                            <details key={id} className={styles.toggle}>
+                                <summary className={styles.toggleSummary}>
+                                    <RichText text={value.rich_text} />
+                                </summary>
+                                <div className={styles.toggleContent}>
+                                    {value.children && <NotionRenderer blocks={value.children} />}
+                                </div>
+                            </details>
+                        );
                     case "divider":
                         return <hr key={id} className={styles.divider} />;
                     case "code":
