@@ -43,7 +43,12 @@ export default function HeroSection({ minimal = false }: { minimal?: boolean }) 
 
     return (
         <section className={styles.hero}>
-            <div className={styles.bg} />
+            <img 
+                src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1800&q=90" 
+                alt="Travel Things Hero" 
+                className={styles.bg} 
+                fetchPriority="high" 
+            />
             <div className={styles.overlay} />
 
             <div className={styles.content}>

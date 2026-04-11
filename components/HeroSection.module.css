@@ -12,12 +12,12 @@
 .bg {
     position: absolute;
     inset: 0;
-    background-image: url('https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1800&q=90');
-    background-size: cover;
-    background-position: center 30%;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center 30%;
     z-index: 0;
     transform: scale(1.05);
-    /* Slight zoom for depth */
 }
 
 /* Neutral dark overlay for white text readability */
