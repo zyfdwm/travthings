@@ -88,18 +88,23 @@ function transformDestination(page: any): DestinationItem {
 }
 
 export async function getBlogPosts() {
-    const response = await notion.databases.query({
-        database_id: process.env.NOTION_BLOG_DB_ID!,
-        filter: {
-            property: "Status",
-            select: {
-                equals: "Published"
-            }
-        },
-        sorts: [{ property: "Date", direction: "descending" }],
-    });
-    
-    return response.results.map(transformPost);
+    try {
+        const response = await notion.databases.query({
+            database_id: process.env.NOTION_BLOG_DB_ID!,
+            filter: {
+                property: "Status",
+                select: {
+                    equals: "Published"
+                }
+            },
+            sorts: [{ property: "Date", direction: "descending" }],
+        });
+        
+        return response.results.map(transformPost);
+    } catch (error) {
+        console.error("Error fetching blog posts from Notion:", error);
+        return [];
+    }
 }
 
 export async function getPostBySlug(slug: string) {
@@ -145,13 +150,18 @@ export async function getMoreInsightPosts(excludeId: string, limit: number = 3) 
 }
 
 export async function getDestinations() {
-    const response = await notion.databases.query({
-        database_id: process.env.NOTION_DESTINATIONS_DB_ID!,
-        filter: {
-            property: "Status",
-            select: { equals: "Published" },
-        },
-    });
+    try {
+        const response = await notion.databases.query({
+            database_id: process.env.NOTION_DESTINATIONS_DB_ID!,
+            filter: {
+                property: "Status",
+                select: { equals: "Published" },
+            },
+        });
 
-    return response.results.map(page => transformDestination(page));
+        return response.results.map(page => transformDestination(page));
+    } catch (error) {
+        console.error("Error fetching destinations from Notion:", error);
+        return [];
+    }
 }
