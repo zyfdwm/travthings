@@ -22,6 +22,9 @@ export const metadata: Metadata = {
   title: "Travel Things | Curated Destinations & Tailored Itineraries",
   description:
     "Discover expert-verified destinations and travel itineraries with Travel Things. Experience the world at your own pace with our premium concierge service.",
+  verification: {
+    google: "Ka1_u9PJKQ4aqsiHX0kk44nyM-jvXXqPMRrxtmfEG1o",
+  },
 };
 
 export default function RootLayout({

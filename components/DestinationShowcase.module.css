@@ -289,7 +289,7 @@
 
     .grid {
         grid-template-columns: 1fr;
-        grid-auto-rows: 350px;
+        grid-auto-rows: minmax(350px, auto);
     }
 
     .cardFeature,
