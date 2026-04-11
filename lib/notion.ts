@@ -1,4 +1,5 @@
 import { Client } from "@notionhq/client";
+import { optimizeImageUrl } from "./utils";
 
 export const notion = new Client({
     auth: process.env.NOTION_TOKEN,
@@ -43,6 +44,8 @@ function transformPost(page: any): BlogPost {
     const getSelect = (prop: any) => prop?.select?.name || "";
     const getMultiSelect = (prop: any) => prop?.multi_select?.map((s: any) => s.name) || [];
 
+    const rawCover = props.Cover?.url || page.cover?.external?.url || page.cover?.file?.url || "https://images.unsplash.com/photo-1501785888041-af3ef285b470?q=80&w=2000&auto=format&fit=crop";
+
     return {
         id: page.id,
         title: getText(props.Title),
@@ -50,7 +53,7 @@ function transformPost(page: any): BlogPost {
         date: props.Date?.date?.start || page.created_time,
         author: getSelect(props.Author) || "Anonymous",
         description: getText(props.Description),
-        cover: props.Cover?.url || page.cover?.external?.url || page.cover?.file?.url || "https://images.unsplash.com/photo-1501785888041-af3ef285b470?q=80&w=2000&auto=format&fit=crop",
+        cover: optimizeImageUrl(rawCover),
         category: getSelect(props.Category),
         tags: getMultiSelect(props.Tags),
         status: getSelect(props.Status),
@@ -71,6 +74,7 @@ function transformDestination(page: any): DestinationItem {
     const getUrl = (prop: any) => prop?.url || "";
 
     const categoryName = getSelect(props.Category);
+    const rawImage = getUrl(props.Image) || page.cover?.external?.url || page.cover?.file?.url || "https://images.unsplash.com/photo-1501785888041-af3ef285b470?q=80&w=2000&auto=format&fit=crop";
 
     return {
         id: page.id,
@@ -82,7 +86,7 @@ function transformDestination(page: any): DestinationItem {
         activityType: "", // Optional
         price: getText(props.Price),
         description: getText(props.Description),
-        image: getUrl(props.Image) || page.cover?.external?.url || page.cover?.file?.url || "https://images.unsplash.com/photo-1501785888041-af3ef285b470?q=80&w=2000&auto=format&fit=crop",
+        image: optimizeImageUrl(rawImage),
         url: getUrl(props.URL) || "#",
     };
 }

@@ -1,9 +1,12 @@
 import React from "react";
 import styles from "./NotionRenderer.module.css";
+import { optimizeImageUrl } from "@/lib/utils";
 
 interface NotionRendererProps {
     blocks: any[];
 }
+
+
 
 const RichText = ({ text }: { text: any[] }) => {
     if (!text) return null;
@@ -114,10 +117,11 @@ export default function NotionRenderer({ blocks }: NotionRendererProps) {
                             </div>
                         );
                     case "image":
-                        const imageUrl = value.type === "external" ? value.external.url : value.file.url;
+                        const rawImageUrl = value.type === "external" ? value.external.url : value.file.url;
+                        const finalImageUrl = optimizeImageUrl(rawImageUrl);
                         return (
                             <figure key={id} className={styles.image}>
-                                <img src={imageUrl} alt={value.caption?.[0]?.plain_text || "Article image"} />
+                                <img src={finalImageUrl} alt={value.caption?.[0]?.plain_text || "Article image"} />
                                 {value.caption?.length > 0 && (
                                     <figcaption className={styles.caption}>
                                         <RichText text={value.caption} />
