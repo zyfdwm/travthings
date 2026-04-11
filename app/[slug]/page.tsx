@@ -66,19 +66,6 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
                 <div className={styles.heroContent}>
                     <div className={styles.heroMeta}>
                         <span className={styles.category}>{post.category}</span>
-                        <span className={styles.dot}>•</span>
-                        <time className={styles.date}>
-                            {new Date(post.date).toLocaleDateString("en-US", {
-                                year: "numeric",
-                                month: "long",
-                                day: "numeric",
-                            })}
-                        </time>
-                        <span className={styles.dot}>•</span>
-                        <div className={styles.authorBadge}>
-                            <User size={16} className={styles.authorIcon} />
-                            <span className={styles.authorName}>{post.author}</span>
-                        </div>
                     </div>
                     <h1 className={styles.title}>{post.title}</h1>
                     <p className={styles.heroDescription}>{post.description}</p>
@@ -91,6 +78,30 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
 
                     {/* Main Article Content */}
                     <article className={styles.articleBody}>
+
+                        {/* Author Profile Header */}
+                        <div className={styles.authorProfile}>
+                            <img
+                                src="https://res.cloudinary.com/dgz4njcvb/image/upload/v1775924999/chrome_ZjACvfgLGJ_xcid2a.png"
+                                alt={post.author}
+                                className={styles.authorAvatar}
+                            />
+                            <div className={styles.authorDetails}>
+                                <span className={styles.authorProfileName}>{post.author}</span>
+                                <div className={styles.authorSubMeta}>
+                                    <span className={styles.authorRole}>Your Travel Partner</span>
+                                    <span className={styles.authorDot}>•</span>
+                                    <time className={styles.authorDate}>
+                                        {new Date(post.date).toLocaleDateString("en-US", {
+                                            year: "numeric",
+                                            month: "short",
+                                            day: "numeric",
+                                        }).toUpperCase()}
+                                    </time>
+                                </div>
+                            </div>
+                        </div>
+
                         <NotionRenderer blocks={blocks} />
 
                         {/* Tags Footer */}

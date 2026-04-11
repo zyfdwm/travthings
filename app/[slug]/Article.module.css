@@ -5,7 +5,7 @@
 
 .hero {
     position: relative;
-    height: 100vh;
+    height: calc(100vh - 64px);
     min-height: 700px;
     width: 100%;
     display: flex;
@@ -85,7 +85,7 @@
     padding: 5px 14px;
     background: rgba(255, 255, 255, 0.15);
     border: 1px solid rgba(255, 255, 255, 0.2);
-    border-radius: 4px;
+    border-radius: 999px;
     backdrop-filter: blur(8px);
     -webkit-backdrop-filter: blur(8px);
 }
@@ -136,6 +136,58 @@
 .articleBody {
     flex: 1;
     max-width: 850px;
+}
+
+/* Author Profile Component */
+.authorProfile {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-top: 0;
+    margin-bottom: 32px;
+    padding-bottom: 24px;
+    border-bottom: 1px solid #e2e8f0;
+    padding-left: 30px;
+}
+
+.authorAvatar {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid #006699;
+    padding: 2px;
+}
+
+.authorDetails {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 4px;
+}
+
+.authorProfileName {
+    font-family: var(--font-heading);
+    font-size: 16px;
+    font-weight: 700;
+    color: #1a243d;
+    line-height: 1;
+}
+
+.authorSubMeta {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-family: var(--font-body);
+    font-size: 12px;
+    font-weight: 500;
+    color: #94a3b8;
+    /* letter-spacing: 0.05em; */
+    /* text-transform: uppercase; */
+}
+
+.authorRole {
+    color: #64748b;
 }
 
 /* Notion Renderer custom overrides in Article context if needed */
@@ -202,26 +254,26 @@
         max-width: 100%;
     }
 
-    .title {
+    .heroMeta {
         order: 1;
+        margin-bottom: 24px;
+        margin-top: 0;
+    }
+
+    .title {
+        order: 2;
         font-size: 48px;
     }
 
     .heroDescription {
-        order: 2;
-        font-size: 16px;
-    }
-
-    .heroMeta {
         order: 3;
-        margin-top: 32px;
-        margin-bottom: 0;
+        font-size: 16px;
     }
 }
 
 @media (max-width: 768px) {
     .hero {
-        height: 100vh;
+        height: calc(100vh - 64px);
         min-height: 600px;
     }
 
