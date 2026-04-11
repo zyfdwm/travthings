@@ -2,6 +2,9 @@ import React from "react";
 import { Metadata } from "next";
 import { getBlogPosts } from "@/lib/notion";
 import BlogMainHero from "@/components/BlogMainHero";
+
+export const dynamic = 'force-static';
+
 import FeaturedPost from "@/components/FeaturedPost";
 import BlogCard from "@/components/BlogCard";
 import Pagination from "@/components/Pagination";

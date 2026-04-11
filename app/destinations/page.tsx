@@ -5,6 +5,9 @@ import DestinationCard from "@/components/DestinationCard";
 import { getDestinations } from "@/lib/notion";
 import styles from "./Destinations.module.css";
 
+export const dynamic = 'force-static';
+
+
 const CATEGORIES = ["All Destinations", "Jakarta", "Bandung", "Bali", "Yogyakarta"];
 
 interface DestinationsPageProps {
