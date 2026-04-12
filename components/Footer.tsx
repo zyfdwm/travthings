@@ -35,7 +35,7 @@ const Footer = () => {
             </div>
             <div className={`${styles.linksRow} ${styles.secondRow}`}>
               <Link href="/sustainability" className={styles.footerLink}>Sustainability</Link>
-              <Link href="/contact" className={styles.footerLink}>Contact</Link>
+              <a href="mailto:hello@travelthings.com" className={styles.footerLink} id="contact-link">Contact</a>
             </div>
           </div>
           <p className={styles.copy}>
