@@ -16,22 +16,27 @@ export function optimizeImageUrl(
     
     const transformStr = transforms.join(",");
 
-    // If it is a native Cloudinary URL
+    // If it is a native Cloudinary URL (upload)
     if (url.includes("res.cloudinary.com") && url.includes("/upload/")) {
-        // Remove any existing transformations and inject new ones
         const parts = url.split("/upload/");
         const afterUpload = parts[1].split("/");
-        
-        // If there are existing comma-separated transforms, skip them
         const finalPath = afterUpload[afterUpload.length - 1]; 
         const version = afterUpload.length > 1 ? afterUpload[afterUpload.length - 2] : "";
-
         return `${parts[0]}/upload/${transformStr}/${version ? version + "/" : ""}${finalPath}`;
     }
 
+    // If it is already a Cloudinary Fetch URL, extract the inner URL and re-process it
+    // This prevents double-wrapping (res.cloudinary.com/.../fetch/.../res.cloudinary.com/.../fetch/...)
+    if (url.includes("res.cloudinary.com") && url.includes("/fetch/")) {
+        const parts = url.split("/fetch/");
+        const afterFetch = parts[1].split("/");
+        // The last part of a fetch URL is the original URL (encoded or not)
+        // Cloudinary fetch structure: .../fetch/<transforms>/<version>/<url>
+        const originalUrl = decodeURIComponent(afterFetch[afterFetch.length - 1]);
+        return `https://res.cloudinary.com/${cloudName}/image/fetch/${transformStr}/${encodeURIComponent(originalUrl)}`;
+    }
+
     // For any other external image (Unsplash, Notion AWS generated links, etc)
-    // Run it through Cloudinary Fetch API to aggressively optimize and resize
-    // We remove some common query params from Unsplash to let Cloudinary handle it
     let cleanUrl = url;
     if (url.includes("images.unsplash.com")) {
         cleanUrl = url.split("?")[0];

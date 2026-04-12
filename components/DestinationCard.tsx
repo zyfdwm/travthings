@@ -35,7 +35,7 @@ const DestinationCard: React.FC<DestinationCardProps> = ({ item }) => {
                 <div className={styles.metaRow}>
                     {item.price && (
                         <span className={styles.price}>
-                            Start from - {item.price}
+                            Start from - ${item.price}
                         </span>
                     )}
                 </div>

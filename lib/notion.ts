@@ -33,6 +33,29 @@ export interface DestinationItem {
     url: string;
 }
 
+function getFileUrl(prop: any) {
+    if (!prop) return undefined;
+    
+    // 1. If it's a simple URL property
+    if (prop.type === "url" && prop.url) return prop.url;
+    
+    // 2. If it's a Files & Media property
+    if (prop.type === "files" && prop.files && prop.files.length > 0) {
+        const file = prop.files[0];
+        return file.external?.url || file.file?.url;
+    }
+
+    // 3. Fallback: If it's a Rich Text property containing a URL
+    if (prop.type === "rich_text" && prop.rich_text?.[0]) {
+        const text = prop.rich_text[0].plain_text;
+        if (text && (text.startsWith("http://") || text.startsWith("https://"))) {
+            return text.trim();
+        }
+    }
+    
+    return undefined;
+}
+
 function transformPost(page: any): BlogPost {
     const props = page.properties;
     
@@ -44,7 +67,12 @@ function transformPost(page: any): BlogPost {
     const getSelect = (prop: any) => prop?.select?.name || "";
     const getMultiSelect = (prop: any) => prop?.multi_select?.map((s: any) => s.name) || [];
 
-    const rawCover = props.Cover?.url || page.cover?.external?.url || page.cover?.file?.url || "https://images.unsplash.com/photo-1501785888041-af3ef285b470?q=80&w=2000&auto=format&fit=crop";
+    // Robust cover lookup
+    const rawCover = getFileUrl(props.Cover) || 
+                     getFileUrl(props.cover) || 
+                     page.cover?.external?.url || 
+                     page.cover?.file?.url || 
+                     "https://images.unsplash.com/photo-1501785888041-af3ef285b470?q=80&w=2000&auto=format&fit=crop";
 
     return {
         id: page.id,
@@ -53,7 +81,7 @@ function transformPost(page: any): BlogPost {
         date: props.Date?.date?.start || page.created_time,
         author: getSelect(props.Author) || "Anonymous",
         description: getText(props.Description),
-        cover: optimizeImageUrl(rawCover, 1200),
+        cover: rawCover,
         category: getSelect(props.Category),
         tags: getMultiSelect(props.Tags),
         status: getSelect(props.Status),
@@ -71,10 +99,27 @@ function transformDestination(page: any): DestinationItem {
 
     const getSelect = (prop: any) => prop?.select?.name || "";
     const getMultiSelect = (prop: any) => prop?.multi_select?.map((s: any) => s.name) || [];
-    const getUrl = (prop: any) => prop?.url || "";
+    const getNumber = (prop: any) => {
+        if (!prop || prop.number === null || prop.number === undefined) return 0;
+        return prop.number;
+    };
 
     const categoryName = getSelect(props.Category);
-    const rawImage = getUrl(props.Image) || page.cover?.external?.url || page.cover?.file?.url || "https://images.unsplash.com/photo-1501785888041-af3ef285b470?q=80&w=2000&auto=format&fit=crop";
+    
+    // Robust image lookup (Image, Cover, Thumbnail, etc)
+    const rawImage = getFileUrl(props.Image) || 
+                     getFileUrl(props.image) || 
+                     getFileUrl(props.Cover) || 
+                     getFileUrl(props.cover) || 
+                     getFileUrl(props.Thumbnail) || 
+                     getFileUrl(props.thumbnail) || 
+                     getFileUrl(props.Hero) || 
+                     getFileUrl(props.hero) || 
+                     page.cover?.external?.url || 
+                     page.cover?.file?.url || 
+                     "https://images.unsplash.com/photo-1501785888041-af3ef285b470?q=80&w=2000&auto=format&fit=crop";
+
+    const priceValue = getNumber(props.Price);
 
     return {
         id: page.id,
@@ -84,10 +129,10 @@ function transformDestination(page: any): DestinationItem {
         badge: categoryName?.toUpperCase(),
         duration: "", // Optional, as requested to remove
         activityType: "", // Optional
-        price: getText(props.Price),
+        price: priceValue ? priceValue.toFixed(2) : "",
         description: getText(props.Description),
-        image: optimizeImageUrl(rawImage, 1200),
-        url: getUrl(props.URL) || "#",
+        image: rawImage,
+        url: props.URL?.url || props.Url?.url || props.url?.url || "#",
     };
 }
 
