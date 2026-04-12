@@ -1,19 +1,9 @@
-import React from "react";
+import React, { Suspense } from "react";
 import { Metadata } from "next";
 import { getBlogPosts } from "@/lib/notion";
-import BlogMainHero from "@/components/BlogMainHero";
+import BlogClient from "@/components/BlogClient";
 
 export const dynamic = 'force-static';
-
-import FeaturedPost from "@/components/FeaturedPost";
-import BlogCard from "@/components/BlogCard";
-import Pagination from "@/components/Pagination";
-import styles from "./BlogPage.module.css";
-import { redirect } from "next/navigation";
-
-interface BlogPageProps {
-    searchParams: Promise<{ page?: string; search?: string }>;
-}
 
 export const metadata: Metadata = {
     title: "Blog | Curated Destinations & Tailored Itineraries",
@@ -21,108 +11,12 @@ export const metadata: Metadata = {
 };
 
 export default async function BlogPage() {
-    const currentPage = 1;
-    const searchQuery = "";
-    const postsPerPage = 6;
-
-    // Fetch all published posts
+    // Fetch all published posts at build time
     const allPosts = await getBlogPosts();
 
-
-    const filteredPosts = allPosts;
-
-
-
-    if (allPosts.length === 0) {
-        return (
-            <main className={styles.container}>
-                <BlogMainHero
-                    mediaUrl="https://res.cloudinary.com/dgz4njcvb/image/upload/v1775920048/steptodown.com423139_qgdmdt.jpg"
-                    badge="Blog"
-                    title={<>Let's Make the Journey.</>}
-                    description="A curated space for the curious traveler. Deeper context, quieter discoveries, and editorial perspectives you won't find anywhere else."
-                />
-                <div className={styles.empty}>
-                    <p>No posts found. Check back soon!</p>
-                </div>
-            </main>
-        );
-    }
-
-    // Identify the featured post (only if explicitly checked and NOT searching)
-    const featuredPost = !searchQuery ? filteredPosts.find(post => post.isFeatured) : null;
-
-    // Grid posts (excluding the featured one if it exists)
-    const gridPostsSource = featuredPost
-        ? filteredPosts.filter(post => post.id !== featuredPost.id)
-        : filteredPosts;
-
-    // Pagination logic
-    const totalPages = Math.ceil(gridPostsSource.length / postsPerPage);
-
-    // Safety check for empty pages
-    if (currentPage > totalPages && totalPages > 0) {
-        redirect(searchQuery ? `/blog?search=${searchQuery}&page=1` : "/blog?page=1");
-    }
-
-    const startIndex = (currentPage - 1) * postsPerPage;
-    const paginatedPosts = gridPostsSource.slice(startIndex, startIndex + postsPerPage);
-
     return (
-        <main className={styles.container}>
-            <BlogMainHero
-                mediaUrl="https://res.cloudinary.com/dgz4njcvb/image/upload/v1775920048/steptodown.com423139_qgdmdt.jpg"
-                badge="Blog"
-                title={<>Let's Make the Journey.</>}
-                description="A curated space for the curious traveler. Deeper context, quieter discoveries, and editorial perspectives you won't find anywhere else."
-            />
-
-            {/* Show Featured Post strictly if it exists, we're on page 1, and NOT searching */}
-            {currentPage === 1 && featuredPost && !searchQuery && (
-                <FeaturedPost post={featuredPost} />
-            )}
-
-            <section className={styles.gridSection}>
-                <div className={styles.grid}>
-                    {paginatedPosts.map((post) => (
-                        <BlogCard key={post.id} post={post} />
-                    ))}
-                </div>
-
-                <div className={styles.paginationWrapper}>
-                    {/* We need a client wrapper for pagination to handle navigation or just use links */}
-                    {/* For now, I'll pass a simple navigation handler to a Client component */}
-                    <PaginationWrapper totalPages={totalPages} currentPage={currentPage} />
-                </div>
-            </section>
-        </main>
-    );
-}
-
-// Inline Pagination Wrapper for simplicity in this turn
-// In a real scenario, this would be a separate file or handled more elegantly
-function PaginationWrapper({ totalPages, currentPage }: { totalPages: number, currentPage: number }) {
-    return (
-        <nav className={styles.paginationNav}>
-            {currentPage > 1 && (
-                <a href={`/blog?page=${currentPage - 1}`} className={styles.navBtn}>← Previous</a>
-            )}
-
-            <div className={styles.pageNumbers}>
-                {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
-                    <a
-                        key={page}
-                        href={`/blog?page=${page}`}
-                        className={`${styles.pageNumber} ${currentPage === page ? styles.activePage : ""}`}
-                    >
-                        {page}
-                    </a>
-                ))}
-            </div>
-
-            {currentPage < totalPages && (
-                <a href={`/blog?page=${currentPage + 1}`} className={styles.navBtn}>Next →</a>
-            )}
-        </nav>
+        <Suspense fallback={<div>Loading blog...</div>}>
+            <BlogClient allPosts={allPosts} />
+        </Suspense>
     );
 }

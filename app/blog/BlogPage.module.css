@@ -89,3 +89,33 @@
         padding: 0 24px;
     }
 }
+
+.searchStatus {
+    max-width: 1400px;
+    margin: 40px auto 0;
+    padding: 0 40px;
+}
+
+.searchStatus h2 {
+    font-family: var(--font-display);
+    font-size: 32px;
+    color: #1a243d;
+    margin-bottom: 8px;
+}
+
+.searchStatus p {
+    font-family: var(--font-body);
+    font-size: 16px;
+    color: #667085;
+    margin-bottom: 24px;
+}
+
+.clearSearch {
+    display: inline-block;
+    color: #0d4677;
+    font-family: var(--font-body);
+    font-size: 14px;
+    font-weight: 700;
+    text-decoration: underline;
+    text-underline-offset: 4px;
+}
