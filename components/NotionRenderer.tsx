@@ -118,7 +118,7 @@ export default function NotionRenderer({ blocks }: NotionRendererProps) {
                         );
                     case "image":
                         const rawImageUrl = value.type === "external" ? value.external.url : value.file.url;
-                        const finalImageUrl = optimizeImageUrl(rawImageUrl);
+                        const finalImageUrl = optimizeImageUrl(rawImageUrl, 1200);
                         return (
                             <figure key={id} className={styles.image}>
                                 <img src={finalImageUrl} alt={value.caption?.[0]?.plain_text || "Article image"} />

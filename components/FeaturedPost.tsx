@@ -2,6 +2,7 @@ import React from "react";
 import Link from "next/link";
 import { BlogPost } from "@/lib/notion";
 import styles from "./FeaturedPost.module.css";
+import { optimizeImageUrl } from "@/lib/utils";
 
 export default function FeaturedPost({ post }: { post: BlogPost }) {
     return (
@@ -9,7 +10,7 @@ export default function FeaturedPost({ post }: { post: BlogPost }) {
             <div className={styles.container}>
                 <div className={styles.card}>
                     <Link href={`/${post.slug}`} className={styles.imageWrapper}>
-                        <img src={post.cover} alt={post.title} className={styles.image} />
+                        <img src={optimizeImageUrl(post.cover, 1200)} alt={post.title} className={styles.image} />
                     </Link>
                     <div className={styles.content}>
                         <div className={styles.meta}>

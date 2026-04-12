@@ -1,8 +1,8 @@
 "use client";
 
-import Image from "next/image";
 import { motion } from "framer-motion";
 import styles from "./BlogMainHero.module.css";
+import { optimizeImageUrl } from "@/lib/utils";
 
 interface BlogMainHeroProps {
     mediaUrl: string;
@@ -48,13 +48,10 @@ export default function BlogMainHero({ mediaUrl, badge, title, description }: Bl
                         className={styles.media}
                     />
                 ) : (
-                    <Image
-                        src={mediaUrl}
+                    <img
+                        src={optimizeImageUrl(mediaUrl, 1920)}
                         alt="Hero Background"
-                        fill
                         className={styles.media}
-                        priority
-                        unoptimized={mediaUrl.includes('cloudinary')}
                     />
                 )}
                 <div className={styles.overlay} />

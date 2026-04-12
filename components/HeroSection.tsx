@@ -5,6 +5,7 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 import { Compass, ArrowRight } from "lucide-react";
 import styles from "./HeroSection.module.css";
+import { optimizeImageUrl } from "@/lib/utils";
 
 const destinations = [
     { label: "Jakarta, Indonesia", slug: "jakarta" },
@@ -44,7 +45,7 @@ export default function HeroSection({ minimal = false }: { minimal?: boolean }) 
     return (
         <section className={styles.hero}>
             <img 
-                src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1800&q=90" 
+                src={optimizeImageUrl("https://images.unsplash.com/photo-1506905925346-21bda4d32df4", 1920)} 
                 alt="Travel Things Hero" 
                 className={styles.bg} 
                 fetchPriority="high" 

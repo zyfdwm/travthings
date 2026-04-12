@@ -3,6 +3,7 @@ import Image from "next/image";
 import { ArrowUpRight } from "lucide-react";
 import { DestinationItem } from "@/lib/notion";
 import styles from "./DestinationCard.module.css";
+import { optimizeImageUrl } from "@/lib/utils";
 
 interface DestinationCardProps {
     item: DestinationItem;
@@ -13,11 +14,10 @@ const DestinationCard: React.FC<DestinationCardProps> = ({ item }) => {
         <div className={styles.card}>
             <div className={styles.imageWrapper}>
                 <a href={item.url} target="_blank" rel="noopener noreferrer" className={styles.imageLink}>
-                    <Image 
-                        src={item.image}                         alt={item.title} 
-                        fill 
+                    <img 
+                        src={optimizeImageUrl(item.image, 800)} 
+                        alt={item.title} 
                         className={styles.image}
-                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                     />
                 </a>
                 {item.badge && <span className={styles.badge}>{item.badge}</span>}

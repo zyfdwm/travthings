@@ -4,19 +4,20 @@ import Link from "next/link";
 import { ShieldCheck } from "lucide-react";
 import { motion } from "framer-motion";
 import styles from "./DestinationShowcase.module.css";
+import { optimizeImageUrl } from "@/lib/utils";
 
 const destinations = [
     {
         title: "Jakarta",
         slug: "?category=jakarta",
-        image: "https://res.cloudinary.com/dgz4njcvb/image/upload/v1775839851/Explore_Jakarta_cfyo7b.jpg?q=80&w=1200&auto=format&fit=crop",
+        image: optimizeImageUrl("https://res.cloudinary.com/dgz4njcvb/image/upload/v1775839851/Explore_Jakarta_cfyo7b.jpg", 1200),
         type: "feature",
         description: "City of contrasts and hidden gems",
     },
     {
         title: "Bali",
         slug: "?category=bali",
-        image: "https://res.cloudinary.com/dgz4njcvb/image/upload/v1775840218/steptodown.com926926_yzche5.jpg?q=80&w=1200&auto=format&fit=crop",
+        image: optimizeImageUrl("https://res.cloudinary.com/dgz4njcvb/image/upload/v1775840218/steptodown.com926926_yzche5.jpg", 800),
         type: "small",
         isFeatured: false,
         description: "Beaches, temples, and soul",
@@ -25,7 +26,7 @@ const destinations = [
         title: "Bandung",
         // category: "?category=bandung",
         slug: "?category=bandung",
-        image: "https://res.cloudinary.com/dgz4njcvb/image/upload/v1775840320/steptodown.com912575_svnoje.jpg?q=80&w=1200&auto=format&fit=crop",
+        image: optimizeImageUrl("https://res.cloudinary.com/dgz4njcvb/image/upload/v1775840320/steptodown.com912575_svnoje.jpg", 800),
         type: "bottom-left",
         description: "Cool air, creative energy",
     },
@@ -33,7 +34,7 @@ const destinations = [
         title: "Yogyakarta",
         category: "Yogyakarta",
         slug: "?category=yogyakarta",
-        image: "https://res.cloudinary.com/dgz4njcvb/image/upload/v1775840482/steptodown.com996184_s8flth.jpg?q=80&w=1200&auto=format&fit=crop",
+        image: optimizeImageUrl("https://res.cloudinary.com/dgz4njcvb/image/upload/v1775840482/steptodown.com996184_s8flth.jpg", 1000),
         type: "bottom-wide",
         description: "Heritage, art, and tradition",
     },

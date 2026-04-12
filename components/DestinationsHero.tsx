@@ -1,9 +1,9 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import Image from "next/image";
 import { motion } from "framer-motion";
 import styles from "./DestinationsHero.module.css";
+import { optimizeImageUrl } from "@/lib/utils";
 
 interface DestinationsHeroProps {
     mediaUrl: string;
@@ -52,13 +52,10 @@ export default function DestinationsHero({ mediaUrl }: DestinationsHeroProps) {
                         className={styles.media}
                     />
                 ) : (
-                    <Image
-                        src={mediaUrl}
+                    <img
+                        src={optimizeImageUrl(mediaUrl, 1920)}
                         alt="Hero Background"
-                        fill
                         className={styles.media}
-                        priority
-                        unoptimized={mediaUrl.includes('cloudinary')}
                     />
                 )}
             </div>

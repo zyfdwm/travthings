@@ -53,7 +53,7 @@ function transformPost(page: any): BlogPost {
         date: props.Date?.date?.start || page.created_time,
         author: getSelect(props.Author) || "Anonymous",
         description: getText(props.Description),
-        cover: optimizeImageUrl(rawCover),
+        cover: optimizeImageUrl(rawCover, 1200),
         category: getSelect(props.Category),
         tags: getMultiSelect(props.Tags),
         status: getSelect(props.Status),
@@ -86,7 +86,7 @@ function transformDestination(page: any): DestinationItem {
         activityType: "", // Optional
         price: getText(props.Price),
         description: getText(props.Description),
-        image: optimizeImageUrl(rawImage),
+        image: optimizeImageUrl(rawImage, 1200),
         url: getUrl(props.URL) || "#",
     };
 }

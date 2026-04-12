@@ -2,13 +2,14 @@ import React from "react";
 import Link from "next/link";
 import { BlogPost } from "@/lib/notion";
 import styles from "./BlogCard.module.css";
+import { optimizeImageUrl } from "@/lib/utils";
 
 export default function BlogCard({ post }: { post: BlogPost }) {
     return (
         <article className={styles.card}>
             <Link href={`/${post.slug}`} className={styles.imageLink}>
                 <div className={styles.imageWrapper}>
-                    <img src={post.cover} alt={post.title} className={styles.image} />
+                    <img src={optimizeImageUrl(post.cover, 800)} alt={post.title} className={styles.image} />
                     <span className={styles.categoryBadge}>{post.category}</span>
                 </div>
             </Link>
