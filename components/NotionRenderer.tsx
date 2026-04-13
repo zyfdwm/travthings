@@ -176,11 +176,13 @@ export default function NotionRenderer({ blocks }: NotionRendererProps) {
                         return (
                             <div key={id} className={styles.injectedWidget}>
                                 <h3 className={styles.injectedWidgetTitle}>{value.title}</h3>
-                                <div 
-                                    data-gyg-widget="auto" 
-                                    data-gyg-partner-id="KJBNEUM" 
-                                    data-gyg-cmp="Activity"
-                                ></div>
+                                <div className="gygScrollContainer">
+                                    <div 
+                                        data-gyg-widget="auto" 
+                                        data-gyg-partner-id="KJBNEUM" 
+                                        data-gyg-cmp="Activity"
+                                    ></div>
+                                </div>
                             </div>
                         );
                     default:

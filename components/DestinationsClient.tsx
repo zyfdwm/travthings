@@ -150,11 +150,13 @@ export default function DestinationsClient({ allDestinations }: DestinationsClie
 
                             {/* Row 2: GetYourGuide Widget - Now shown on all pages */}
                             <div className={styles.gygWidgetContainer}>
-                                <div 
-                                    data-gyg-widget="auto" 
-                                    data-gyg-partner-id="KJBNEUM" 
-                                    data-gyg-cmp="Activity"
-                                ></div>
+                                <div className="gygScrollContainer">
+                                    <div 
+                                        data-gyg-widget="auto" 
+                                        data-gyg-partner-id="KJBNEUM" 
+                                        data-gyg-cmp="Activity"
+                                    ></div>
+                                </div>
                             </div>
 
                             {/* Row 3: Remaining Destinations (indices 3-5) */}

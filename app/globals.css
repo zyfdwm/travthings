@@ -72,3 +72,20 @@ img {
 [href*='getyourguide.com/affiliate'] {
     display: none !important;
 }
+
+/* GetYourGuide Mobile Horizontal Scroll */
+.gygScrollContainer {
+    width: 100%;
+}
+
+@media (max-width: 768px) {
+    .gygScrollContainer {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        padding-bottom: 8px; /* space for scrollbar */
+    }
+    /* Force inner content to think it has desktop width */
+    .gygScrollContainer > div {
+        min-width: 860px !important;
+    }
+}
