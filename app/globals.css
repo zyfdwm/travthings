@@ -63,3 +63,12 @@ img {
     opacity: 0 !important;
     pointer-events: none !important;
 }
+
+/* Hide GetYourGuide attribution/affiliate links */
+.gyg-widget-logos,
+.gyg-attribution,
+.gyg-powered-by,
+[class*='gyg-widget-powered-by'],
+[href*='getyourguide.com/affiliate'] {
+    display: none !important;
+}
