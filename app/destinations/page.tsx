@@ -7,7 +7,7 @@ export const dynamic = 'force-static';
 
 export const metadata: Metadata = {
     title: "Destinations | Curated Destinations & Tailored Itineraries",
-    description: "Discover Jakarta, Bandung, Bali, and more. Hand-picked spots and expert travel tips curated by the Travel Things team.",
+    description: "Discover Jakarta, Bandung, Bali, and more. Hand picked spots and expert travel tips curated by the Travel Things team.",
 };
 
 export default async function DestinationsPage() {
