@@ -1,7 +1,8 @@
 "use client";
 
-import React, { useMemo } from "react";
-import { useSearchParams } from "next/navigation";
+import React, { useMemo, useState, useEffect } from "react";
+import { useSearchParams, useRouter } from "next/navigation";
+import { Search, X } from "lucide-react";
 import DestinationCard from "./DestinationCard";
 import DestinationsHero from "./DestinationsHero";
 import styles from "@/app/destinations/Destinations.module.css";
@@ -15,11 +16,40 @@ interface DestinationsClientProps {
 
 export default function DestinationsClient({ allDestinations }: DestinationsClientProps) {
     const searchParams = useSearchParams();
+    const router = useRouter();
     
     // Read params from URL
     const categoryQuery = searchParams.get("category") || "all destinations";
     const searchQuery = searchParams.get("search") || "";
     const pageQuery = searchParams.get("page") ? parseInt(searchParams.get("page")!) : 1;
+
+    // Local state for the search input to keep it snappy
+    const [localSearch, setLocalSearch] = useState(searchQuery);
+
+    // Sync local search with URL if it changes (e.g. from Navbar)
+    useEffect(() => {
+        setLocalSearch(searchQuery);
+    }, [searchQuery]);
+
+    const handleSearchSubmit = (e: React.FormEvent) => {
+        e.preventDefault();
+        const params = new URLSearchParams(searchParams.toString());
+        if (localSearch.trim()) {
+            params.set("search", localSearch.trim());
+        } else {
+            params.delete("search");
+        }
+        params.delete("page"); // Reset to page 1 on search
+        router.push(`/destinations?${params.toString()}`);
+    };
+
+    const clearSearch = () => {
+        setLocalSearch("");
+        const params = new URLSearchParams(searchParams.toString());
+        params.delete("search");
+        params.delete("page");
+        router.push(`/destinations?${params.toString()}`);
+    };
 
     const itemsPerPage = 6;
 
@@ -32,7 +62,8 @@ export default function DestinationsClient({ allDestinations }: DestinationsClie
             const matchesSearch = !searchQuery || 
                                    item.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
                                    item.location.toLowerCase().includes(searchQuery.toLowerCase()) ||
-                                   item.description.toLowerCase().includes(searchQuery.toLowerCase());
+                                   item.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
+                                   item.category.toLowerCase().includes(searchQuery.toLowerCase());
             
             return matchesCategory && matchesSearch;
         });
@@ -60,24 +91,44 @@ export default function DestinationsClient({ allDestinations }: DestinationsClie
 
             <div className={styles.filterSection}>
                 <div className={styles.filterInner}>
-                    <div className={styles.pillContainer}>
-                        {CATEGORIES.map((cat) => {
-                            const params = new URLSearchParams();
-                            if (cat !== "All Destinations") params.set("category", cat.toLowerCase());
-                            if (searchQuery) params.set("search", searchQuery);
-                            const href = params.toString() ? `/destinations?${params.toString()}` : "/destinations";
-                            
-                            return (
-                                <a
-                                    key={cat}
-                                    href={href}
-                                    className={`${styles.pill} ${selectedCategory === cat ? styles.pillActive : ""}`}
-                                >
-                                    {cat}
-                                </a>
-                            );
-                        })}
+                    <div className={styles.filterBar}>
+                        <div className={styles.pillContainer}>
+                            {CATEGORIES.map((cat) => {
+                                const active = selectedCategory === cat;
+                                const params = new URLSearchParams();
+                                if (cat !== "All Destinations") params.set("category", cat.toLowerCase());
+                                if (searchQuery) params.set("search", searchQuery);
+                                const href = params.toString() ? `/destinations?${params.toString()}` : "/destinations";
+                                
+                                return (
+                                    <a
+                                        key={cat}
+                                        href={href}
+                                        className={`${styles.pill} ${active ? styles.pillActive : ""}`}
+                                    >
+                                        {cat}
+                                    </a>
+                                );
+                            })}
+                        </div>
+                        
+                        <form className={styles.searchForm} onSubmit={handleSearchSubmit}>
+                            <Search className={styles.searchIcon} size={18} />
+                            <input
+                                type="text"
+                                placeholder="Search destinations..."
+                                value={localSearch}
+                                onChange={(e) => setLocalSearch(e.target.value)}
+                                className={styles.searchInput}
+                            />
+                            {localSearch && (
+                                <button type="button" onClick={clearSearch} className={styles.clearBtn}>
+                                    <X size={14} />
+                                </button>
+                            )}
+                        </form>
                     </div>
+
                     <div className={styles.stats}>
                         {searchQuery ? (
                             <>Results for &quot;{searchQuery}&quot; in {selectedCategory}</>

@@ -150,48 +150,36 @@
     line-height: 1;
 }
 
-/* Ticker */
-.tickerWrapper {
-    height: 24px;
-    overflow: hidden;
-    position: relative;
-}
-
-.tickerItem {
-    font-family: var(--font-body);
-    font-size: 17px;
-    font-weight: 600;
-    color: #ffffff;
-    height: 24px;
+/* Input */
+.inputWrapper {
+    height: 32px;
     display: flex;
     align-items: center;
-    white-space: nowrap;
 }
 
-@keyframes slideUp {
-    0% {
-        transform: translateY(100%);
-        opacity: 0;
-    }
-
-    12% {
-        transform: translateY(0);
-        opacity: 1;
-    }
-
-    88% {
-        transform: translateY(0);
-        opacity: 1;
-    }
-
-    100% {
-        transform: translateY(-100%);
-        opacity: 0;
-    }
+.heroInput {
+    background: transparent;
+    border: none;
+    outline: none;
+    color: #ffffff;
+    font-family: var(--font-body);
+    font-size: 20px;
+    font-weight: 600;
+    width: 100%;
+    padding: 0;
 }
 
-.tickerItem.animate {
-    animation: slideUp 2.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+.heroInput::placeholder {
+    color: rgba(255, 255, 255, 0.4);
+    opacity: 1;
+}
+
+.heroInput:focus::placeholder {
+    opacity: 0.5;
+}
+
+.heroInput {
+    transition: all 0.3s ease;
 }
 
 /* Explore Button - CIRCLE */

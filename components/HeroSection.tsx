@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
 import { Compass, ArrowRight } from "lucide-react";
 import styles from "./HeroSection.module.css";
@@ -15,8 +16,10 @@ const destinations = [
 ];
 
 export default function HeroSection({ minimal = false }: { minimal?: boolean }) {
+    const router = useRouter();
     const [index, setIndex] = useState(0);
     const [animKey, setAnimKey] = useState(0);
+    const [searchValue, setSearchValue] = useState("");
 
     useEffect(() => {
         const interval = setInterval(() => {
@@ -25,6 +28,16 @@ export default function HeroSection({ minimal = false }: { minimal?: boolean }) 
         }, 2800);
         return () => clearInterval(interval);
     }, []);
+
+    const handleSearch = (e: React.FormEvent) => {
+        e.preventDefault();
+        const term = searchValue.trim();
+        if (term) {
+            router.push(`/destinations?search=${encodeURIComponent(term)}`);
+        } else {
+            router.push(`/destinations`);
+        }
+    };
 
     const current = destinations[index];
 
@@ -91,12 +104,13 @@ export default function HeroSection({ minimal = false }: { minimal?: boolean }) 
 
                 {/* CTA Bar */}
                 {!minimal && (
-                    <motion.div
+                    <motion.form
                         className={styles.ctaBar}
                         initial="hidden"
                         animate="visible"
                         custom={3}
                         variants={fadeIn}
+                        onSubmit={handleSearch}
                     >
                         <div className={styles.ctaLeft}>
                             <div className={styles.iconCircle}>
@@ -104,24 +118,26 @@ export default function HeroSection({ minimal = false }: { minimal?: boolean }) 
                             </div>
                             <div className={styles.ctaText}>
                                 <span className={styles.ctaLabel}>Where To Go?</span>
-                                <div className={styles.tickerWrapper}>
-                                    <div
-                                        key={animKey}
-                                        className={`${styles.tickerItem} ${styles.animate}`}
-                                    >
-                                        {current.label}
-                                    </div>
+                                <div className={styles.inputWrapper}>
+                                    <input
+                                        type="text"
+                                        className={styles.heroInput}
+                                        placeholder={current.label}
+                                        value={searchValue}
+                                        onChange={(e) => setSearchValue(e.target.value)}
+                                    />
                                 </div>
                             </div>
                         </div>
 
-                        <Link
-                            href={`/destinations?category=${current.slug}`}
+                        <button
+                            type="submit"
                             className={styles.ctaButton}
+                            aria-label="Search destinations"
                         >
                             <ArrowRight size={24} />
-                        </Link>
-                    </motion.div>
+                        </button>
+                    </motion.form>
                 )}
             </div>
         </section>

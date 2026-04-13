@@ -17,9 +17,16 @@
     margin: 0 auto;
     padding: 0 24px;
     display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.filterBar {
+    display: flex;
     justify-content: space-between;
     align-items: center;
-    gap: 20px;
+    width: 100%;
+    gap: 32px;
 }
 
 .pillContainer {
@@ -60,6 +67,59 @@
     color: #ffffff;
 }
 
+.searchForm {
+    display: flex;
+    align-items: center;
+    background: #f3f4f6;
+    border-radius: 999px;
+    padding: 10px 20px;
+    gap: 10px;
+    width: 100%;
+    max-width: 360px;
+    border: 1px solid transparent;
+    transition: all 0.2s ease;
+}
+
+.searchForm:focus-within {
+    background: #ffffff;
+    border-color: #0f5ea3;
+    box-shadow: 0 0 0 4px rgba(15, 94, 163, 0.1);
+}
+
+.searchIcon {
+    color: #888888;
+}
+
+.searchInput {
+    background: transparent;
+    border: none;
+    outline: none;
+    font-family: var(--font-body);
+    font-size: 14px;
+    font-weight: 500;
+    color: #1a1c1e;
+    width: 100%;
+}
+
+.clearBtn {
+    background: #e5e7eb;
+    border: none;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #666666;
+    cursor: pointer;
+    transition: background 0.2s ease;
+    flex-shrink: 0;
+}
+
+.clearBtn:hover {
+    background: #d1d5db;
+}
+
 .stats {
     font-family: var(--font-body);
     font-size: 13px;
@@ -86,16 +146,23 @@
     }
 }
 
-@media (max-width: 640px) {
-    .filterInner {
+@media (max-width: 768px) {
+    .filterBar {
         flex-direction: column;
-        align-items: flex-start;
-    }
-    
-    .stats {
-        margin-top: 4px;
+        align-items: stretch;
+        gap: 16px;
     }
 
+    .searchForm {
+        max-width: none;
+    }
+
+    .pillContainer {
+        padding-bottom: 8px;
+    }
+}
+
+@media (max-width: 640px) {
     .grid {
         grid-template-columns: 1fr;
         gap: 32px;
