@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Plus_Jakarta_Sans, Inter_Tight } from "next/font/google";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import Script from "next/script";
 import "./globals.css";
 
 const plusJakartaSans = Plus_Jakarta_Sans({
@@ -34,6 +35,14 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className={`${plusJakartaSans.variable} ${interTight.variable}`} data-scroll-behavior="smooth">
+      <head>
+        {/* GetYourGuide Analytics */}
+        <Script
+          src="https://widget.getyourguide.com/dist/pa.umd.production.min.js"
+          data-gyg-partner-id="KJBNEUM"
+          strategy="afterInteractive"
+        />
+      </head>
       <body data-scroll-behavior="smooth">
         <Navbar />
         <main>{children}</main>
