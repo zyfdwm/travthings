@@ -18,14 +18,14 @@ export default function PressPage() {
 
                 <div className={styles.content}>
                     <p>
-                        Travel Things is a leading digital destination for modern nomads and luxury seekers. 
+                        Travel Things is a leading digital destination for modern nomads and luxury seekers.
                         We welcome opportunities to collaborate with global media houses, journalists, and brand partners.
                     </p>
 
                     <h2>1. About Us</h2>
                     <p>
-                        Founded with a vision to redefine travel through high-end curation and editorial-depth storytelling, 
-                        Travel Things has quickly become a trusted voice in the modern exploration space. 
+                        Founded with a vision to redefine travel through high-end curation and editorial-depth storytelling,
+                        Travel Things has quickly become a trusted voice in the modern exploration space.
                         We focus on destinations that offer cultural depth, impeccable design, and human connection.
                     </p>
 
@@ -43,7 +43,7 @@ export default function PressPage() {
                     <p>
                         For all press and media-related inquiries, please contact our global communications team at:
                         <br />
-                        <a href="mailto:press@travelthings.com" style={{ color: "var(--color-primary)", fontWeight: "bold" }}>
+                        <a href="mailto:press@travelthings.pages.dev" style={{ color: "var(--color-primary)", fontWeight: "bold" }}>
                             press@travelthings.com
                         </a>
                     </p>
