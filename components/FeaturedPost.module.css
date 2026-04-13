@@ -9,7 +9,7 @@
 .container {
     max-width: 1400px;
     margin: 0 auto;
-    padding: 0 40px;
+    padding: 0 24px;
 }
 
 .card {
@@ -18,7 +18,7 @@
     border-radius: 24px;
     overflow: hidden;
     gap: 0;
-    box-shadow: 0 30px 60px rgba(0,0,0,0.08);
+    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.08);
     min-height: 540px;
 }
 
@@ -125,12 +125,15 @@
         flex-direction: column;
         min-height: auto;
     }
+
     .imageWrapper {
         aspect-ratio: 16 / 9;
     }
+
     .content {
         padding: 40px;
     }
+
     .title {
         font-size: 32px;
     }
