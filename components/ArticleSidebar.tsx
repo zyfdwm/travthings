@@ -51,6 +51,15 @@ export default function ArticleSidebar({ title, slug }: ArticleSidebarProps) {
                 </p>
             </div>
             
+            <div className={`${styles.section} ${styles.stickySection}`}>
+                <h3 className={styles.label}>Book Your Trip</h3>
+                <div 
+                    data-gyg-widget="auto" 
+                    data-gyg-partner-id="KJBNEUM" 
+                    data-gyg-cmp="Activity"
+                ></div>
+            </div>
+
             <div className={styles.section}>
                 <h3 className={styles.label}>Share this Article</h3>
                 <div className={styles.shareGrid}>

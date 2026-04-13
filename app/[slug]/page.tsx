@@ -47,10 +47,36 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
     }
 
     // Fetch block content and related posts
-    const [blocks, relatedPosts] = await Promise.all([
+    const [rawBlocks, relatedPosts] = await Promise.all([
         getPageBlocks(post.id),
         getMoreInsightPosts(post.id, 3)
     ]);
+
+    // Inject GYG Widgets into the content dynamically
+    const transformBlocks = (blocks: any[]) => {
+        const transformed = [];
+        const widgetInterval = 10; // Insert a widget every 10 blocks
+        let blocksSinceLastWidget = -4; // Offset to avoid widget too early
+        
+        for (let i = 0; i < blocks.length; i++) {
+            transformed.push(blocks[i]);
+            blocksSinceLastWidget++;
+            
+            // Insert widget if we've reached the interval and there are enough blocks left
+            if (blocksSinceLastWidget >= widgetInterval && i < blocks.length - 3) {
+                transformed.push({
+                    id: `injected-gyg-${i}`,
+                    type: "gyg_widget",
+                    gyg_widget: { title: "Recommended for Your Trip" }
+                });
+                blocksSinceLastWidget = 0; // Reset counter
+            }
+        }
+        
+        return transformed;
+    };
+
+    const blocks = transformBlocks(rawBlocks);
 
     return (
         <main className={styles.mainContainer}>

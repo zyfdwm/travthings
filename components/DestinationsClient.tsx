@@ -143,7 +143,22 @@ export default function DestinationsClient({ allDestinations }: DestinationsClie
                 {filteredDestinations.length > 0 ? (
                     <>
                         <div className={styles.grid}>
-                            {paginatedDestinations.map((item) => (
+                            {/* Row 1: First 3 Destinations */}
+                            {paginatedDestinations.slice(0, 3).map((item) => (
+                                <DestinationCard key={item.id} item={item} />
+                            ))}
+
+                            {/* Row 2: GetYourGuide Widget - Now shown on all pages */}
+                            <div className={styles.gygWidgetContainer}>
+                                <div 
+                                    data-gyg-widget="auto" 
+                                    data-gyg-partner-id="KJBNEUM" 
+                                    data-gyg-cmp="Activity"
+                                ></div>
+                            </div>
+
+                            {/* Row 3: Remaining Destinations (indices 3-5) */}
+                            {paginatedDestinations.slice(3).map((item) => (
                                 <DestinationCard key={item.id} item={item} />
                             ))}
                         </div>

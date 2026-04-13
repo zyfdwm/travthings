@@ -157,43 +157,53 @@ export async function getBlogPosts() {
 }
 
 export async function getPostBySlug(slug: string) {
-    const response = await notion.databases.query({
-        database_id: process.env.NOTION_BLOG_DB_ID!,
-        filter: {
-            property: "Slug",
-            rich_text: {
-                equals: slug,
+    try {
+        const response = await notion.databases.query({
+            database_id: process.env.NOTION_BLOG_DB_ID!,
+            filter: {
+                property: "Slug",
+                rich_text: {
+                    equals: slug,
+                },
             },
-        },
-    });
+        });
 
-    if (response.results.length === 0) return null;
-    return transformPost(response.results[0]);
+        if (response.results.length === 0) return null;
+        return transformPost(response.results[0]);
+    } catch (error) {
+        console.error(`Error fetching post by slug (${slug}):`, error);
+        return null;
+    }
 }
 
 export async function getPageBlocks(pageId: string) {
-    const blocks: any[] = [];
-    let cursor: string | undefined = undefined;
+    try {
+        const blocks: any[] = [];
+        let cursor: string | undefined = undefined;
 
-    while (true) {
-        const { results, next_cursor }: any = await notion.blocks.children.list({
-            block_id: pageId,
-            start_cursor: cursor,
-        });
-        blocks.push(...results);
-        if (!next_cursor) break;
-        cursor = next_cursor;
-    }
-
-    // Fetch children for tables and toggles
-    const childRequests = blocks.map(async (block) => {
-        if (block.has_children && (block.type === "table" || block.type === "toggle")) {
-            block[block.type].children = await getPageBlocks(block.id);
+        while (true) {
+            const { results, next_cursor }: any = await notion.blocks.children.list({
+                block_id: pageId,
+                start_cursor: cursor,
+            });
+            blocks.push(...results);
+            if (!next_cursor) break;
+            cursor = next_cursor;
         }
-    });
-    await Promise.all(childRequests);
 
-    return blocks;
+        // Fetch children for tables and toggles
+        const childRequests = blocks.map(async (block) => {
+            if (block.has_children && (block.type === "table" || block.type === "toggle")) {
+                block[block.type].children = await getPageBlocks(block.id);
+            }
+        });
+        await Promise.all(childRequests);
+
+        return blocks;
+    } catch (error) {
+        console.error(`Error fetching page blocks (${pageId}):`, error);
+        return [];
+    }
 }
 
 export async function getMoreInsightPosts(excludeId: string, limit: number = 3) {

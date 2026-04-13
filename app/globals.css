@@ -49,3 +49,17 @@ img {
   max-width: 100%;
   display: block;
 }
+/* Hide GetYourGuide Branding/Attribution */
+.gyg-attribution, 
+.gyg-powered-by, 
+.gyg-footer, 
+[class*='gyg-widget-powered-by'], 
+[href*='getyourguide.com/affiliate'] {
+    display: none !important;
+    visibility: hidden !important;
+    height: 0 !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    opacity: 0 !important;
+    pointer-events: none !important;
+}

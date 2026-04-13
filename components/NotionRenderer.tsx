@@ -172,6 +172,17 @@ export default function NotionRenderer({ blocks }: NotionRendererProps) {
                                 </code>
                             </pre>
                         );
+                    case "gyg_widget":
+                        return (
+                            <div key={id} className={styles.injectedWidget}>
+                                <h3 className={styles.injectedWidgetTitle}>{value.title}</h3>
+                                <div 
+                                    data-gyg-widget="auto" 
+                                    data-gyg-partner-id="KJBNEUM" 
+                                    data-gyg-cmp="Activity"
+                                ></div>
+                            </div>
+                        );
                     default:
                         console.warn(`Unsupported block type: ${type}`);
                         return null;

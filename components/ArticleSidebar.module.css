@@ -1,6 +1,4 @@
 .sidebar {
-    position: sticky;
-    top: 120px;
     display: flex;
     flex-direction: column;
     gap: 40px;
@@ -38,6 +36,12 @@
     margin-bottom: 20px;
     text-transform: uppercase;
     letter-spacing: 0.05em;
+}
+
+.stickySection {
+    position: sticky;
+    top: 80px;
+    z-index: 10;
 }
 
 .shareGrid {
