@@ -43,7 +43,7 @@ export default function PressPage() {
                     <p>
                         For all press and media-related inquiries, please contact our global communications team at:
                         <br />
-                        <a href="mailto:press@travelthings.pages.dev" style={{ color: "var(--color-primary)", fontWeight: "bold" }}>
+                        <a href="mailto:pres@travelthings.pages.dev" style={{ color: "var(--color-primary)", fontWeight: "bold" }}>
                             press@travelthings.com
                         </a>
                     </p>
