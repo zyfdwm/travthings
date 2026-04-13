@@ -6,7 +6,7 @@ import DestinationsClient from "@/components/DestinationsClient";
 export const dynamic = 'force-static';
 
 export const metadata: Metadata = {
-    title: "Destinations | Curated Destinations & Tailored Itineraries",
+    title: "Travel Things | Curated Destinations & Tailored Itineraries",
     description: "Discover Jakarta, Bandung, Bali, and more. Hand picked spots and expert travel tips curated by the Travel Things team.",
 };
 
