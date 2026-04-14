@@ -8,7 +8,7 @@ import DestinationsHero from "./DestinationsHero";
 import styles from "@/app/destinations/Destinations.module.css";
 import { DestinationItem } from "@/lib/notion";
 
-const CATEGORIES = ["All Destinations", "Jakarta", "Bandung", "Bali", "Yogyakarta"];
+const DEFAULT_CATEGORIES = ["All Destinations"];
 
 interface DestinationsClientProps {
     allDestinations: DestinationItem[];
@@ -22,6 +22,18 @@ export default function DestinationsClient({ allDestinations }: DestinationsClie
     const categoryQuery = searchParams.get("category") || "all destinations";
     const searchQuery = searchParams.get("search") || "";
     const pageQuery = searchParams.get("page") ? parseInt(searchParams.get("page")!) : 1;
+
+    // Dynamically derive categories from Notion data
+    const dynamicCategories = useMemo(() => {
+        const uniqueCategories = new Set<string>();
+        allDestinations.forEach(item => {
+            if (item.category) {
+                uniqueCategories.add(item.category);
+            }
+        });
+        const sortedCats = Array.from(uniqueCategories).sort();
+        return ["All Destinations", ...sortedCats];
+    }, [allDestinations]);
 
     // Local state for the search input to keep it snappy
     const [localSearch, setLocalSearch] = useState(searchQuery);
@@ -69,7 +81,7 @@ export default function DestinationsClient({ allDestinations }: DestinationsClie
         });
     }, [allDestinations, categoryQuery, searchQuery]);
 
-    const selectedCategory = CATEGORIES.find(c => c.toLowerCase() === categoryQuery.toLowerCase()) || "All Destinations";
+    const selectedCategory = dynamicCategories.find(c => c.toLowerCase() === categoryQuery.toLowerCase()) || "All Destinations";
     
     // Pagination logic
     const totalPages = Math.ceil(filteredDestinations.length / itemsPerPage);
@@ -93,7 +105,7 @@ export default function DestinationsClient({ allDestinations }: DestinationsClie
                 <div className={styles.filterInner}>
                     <div className={styles.filterBar}>
                         <div className={styles.pillContainer}>
-                            {CATEGORIES.map((cat) => {
+                            {dynamicCategories.map((cat) => {
                                 const active = selectedCategory === cat;
                                 const params = new URLSearchParams();
                                 if (cat !== "All Destinations") params.set("category", cat.toLowerCase());
