@@ -36,6 +36,10 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${plusJakartaSans.variable} ${interTight.variable}`} data-scroll-behavior="smooth">
       <head>
+        {/* Preconnect to GYG for faster widget loading */}
+        <link rel="preconnect" href="https://widget.getyourguide.com" />
+        <link rel="dns-prefetch" href="https://widget.getyourguide.com" />
+        
         {/* GetYourGuide Analytics */}
         <Script
           src="https://widget.getyourguide.com/dist/pa.umd.production.min.js"

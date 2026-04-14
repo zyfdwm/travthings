@@ -345,6 +345,18 @@
     border: 1px solid #e2e8f0;
 }
 
+@media (max-width: 768px) {
+    .injectedWidget {
+        background: #ffffff; /* Make the background white to merge with GYG cards on mobile */
+        padding: 24px 16px;
+        margin: 40px 0;
+        border: none; /* Remove border to blend perfectly or keep subtle */
+        border-top: 1px solid #f0f0f0;
+        border-bottom: 1px solid #f0f0f0;
+        border-radius: 0; /* Remove border-radius on mobile for edge-to-edge aesthetics */
+    }
+}
+
 .injectedWidgetTitle {
     font-family: var(--font-heading);
     font-size: 20px;
@@ -353,3 +365,4 @@
     margin-bottom: 24px;
     
 }
+
