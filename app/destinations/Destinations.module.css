@@ -36,7 +36,8 @@
     padding-bottom: 4px;
     -ms-overflow-style: none;
     scrollbar-width: none;
-    width: 100%;
+    flex: 1;
+    min-width: 0;
 }
 
 .pillContainer::-webkit-scrollbar {
@@ -78,6 +79,7 @@
     max-width: 360px;
     border: 1px solid transparent;
     transition: all 0.2s ease;
+    flex-shrink: 0;
 }
 
 .searchForm:focus-within {

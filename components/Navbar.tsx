@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useState, useEffect, Suspense } from "react";
 import { Search, X, Menu } from "lucide-react";
@@ -21,6 +22,7 @@ function NavbarSearch() {
     const [searchValue, setSearchValue] = useState("");
 
     const isBlogPage = pathname === "/blog";
+    const isDestinationsPage = pathname === "/destinations";
     
     // Sync search value with URL if on meaningful pages
     useEffect(() => {
@@ -47,6 +49,12 @@ function NavbarSearch() {
             handleSearch(e);
         }
     };
+
+    // Hide search entirely if on destinations page to avoid double search bars
+    // NOTE: Early returns must happen AFTER all hooks (useState, useEffect, etc.) are called
+    if (isDestinationsPage) {
+        return null;
+    }
 
     return (
         <form 
@@ -95,7 +103,14 @@ export default function Navbar() {
 
                 {/* Logo */}
                 <Link href="/" className={styles.logo}>
-                    Travel Things
+                    <Image 
+                        src="/logo.png" 
+                        alt="Travel Things" 
+                        width={180} 
+                        height={40} 
+                        priority 
+                        className={styles.logoImg} 
+                    />
                 </Link>
 
                 {/* Nav Links */}

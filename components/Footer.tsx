@@ -20,7 +20,7 @@ const Footer = () => {
             <Link href="/" className={styles.socialLink}>
               <Globe size={20} />
             </Link>
-            <Link href="mailto:hello@travelthings.com" className={styles.socialLink}>
+            <Link href="mailto:faizxdwm@gmail.com" className={styles.socialLink}>
               <Mail size={20} />
             </Link>
           </div>
@@ -35,11 +35,11 @@ const Footer = () => {
             </div>
             <div className={`${styles.linksRow} ${styles.secondRow}`}>
               <Link href="/sustainability" className={styles.footerLink}>Sustainability</Link>
-              <a href="mailto:hello@travelthings.com" className={styles.footerLink} id="contact-link">Contact</a>
+              <a href="mailto:faizxdwm@gmail.com" className={styles.footerLink} id="contact-link">Contact</a>
             </div>
           </div>
           <p className={styles.copy}>
-            © 2026 TravTings . The Art of Modern Exploration.
+            © 2026 Travel Things . The Art of Modern Exploration.
           </p>
         </div>
       </div>

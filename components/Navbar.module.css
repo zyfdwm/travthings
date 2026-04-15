@@ -19,17 +19,21 @@
 }
 
 .logo {
-    font-family: var(--font-heading);
-    font-size: 22px;
-    font-weight: 800;
-    color: #0f5ea3;
-    text-decoration: none;
-    letter-spacing: -0.5px;
+    display: flex;
+    align-items: center;
     flex-shrink: 0;
+    text-decoration: none;
+}
+
+.logoImg {
+    height: 38px;
+    width: auto;
+    object-fit: contain;
+    display: block;
 }
 
 .logo:hover {
-    color: #0a4a80;
+    opacity: 0.9;
 }
 
 .links {

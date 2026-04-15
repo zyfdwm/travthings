@@ -41,6 +41,7 @@ h6 {
 
 a {
   text-decoration: none;
+  font-weight: bold;
   color: inherit;
   color: #0f5ea3;
 }
@@ -49,19 +50,20 @@ img {
   max-width: 100%;
   display: block;
 }
+
 /* Hide GetYourGuide Branding/Attribution */
-.gyg-attribution, 
-.gyg-powered-by, 
-.gyg-footer, 
-[class*='gyg-widget-powered-by'], 
+.gyg-attribution,
+.gyg-powered-by,
+.gyg-footer,
+[class*='gyg-widget-powered-by'],
 [href*='getyourguide.com/affiliate'] {
-    display: none !important;
-    visibility: hidden !important;
-    height: 0 !important;
-    padding: 0 !important;
-    margin: 0 !important;
-    opacity: 0 !important;
-    pointer-events: none !important;
+  display: none !important;
+  visibility: hidden !important;
+  height: 0 !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
 }
 
 /* Hide GetYourGuide attribution/affiliate links */
@@ -70,22 +72,24 @@ img {
 .gyg-powered-by,
 [class*='gyg-widget-powered-by'],
 [href*='getyourguide.com/affiliate'] {
-    display: none !important;
+  display: none !important;
 }
 
 /* GetYourGuide Mobile Horizontal Scroll */
 .gygScrollContainer {
-    width: 100%;
+  width: 100%;
 }
 
 @media (max-width: 768px) {
-    .gygScrollContainer {
-        overflow-x: auto;
-        -webkit-overflow-scrolling: touch;
-        padding-bottom: 8px; /* space for scrollbar */
-    }
-    /* Force inner content to think it has desktop width */
-    .gygScrollContainer > div {
-        min-width: 860px !important;
-    }
+  .gygScrollContainer {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    padding-bottom: 8px;
+    /* space for scrollbar */
+  }
+
+  /* Force inner content to think it has desktop width */
+  .gygScrollContainer>div {
+    min-width: 860px !important;
+  }
 }
