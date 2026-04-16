@@ -187,7 +187,21 @@
     background: #f0f7ff;
 }
 
-@media (max-width: 640px) {
+@media (max-width: 992px) {
+    .nav {
+        gap: 16px;
+    }
+    
+    .searchBox {
+        width: 160px;
+    }
+
+    .searchBoxFocused {
+        width: 180px;
+    }
+}
+
+@media (max-width: 768px) {
     .links {
         display: none;
     }
@@ -197,6 +211,25 @@
     }
 
     .searchBox {
+        width: 140px;
+    }
+
+    .searchBoxFocused {
         width: 160px;
+    }
+}
+
+@media (max-width: 480px) {
+    .searchBox {
+        width: 120px;
+        padding: 0 10px;
+    }
+
+    .searchBoxFocused {
+        width: 140px;
+    }
+    
+    .logoImg {
+        height: 32px;
     }
 }

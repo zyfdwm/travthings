@@ -1,6 +1,4 @@
 .container {
-    padding-top: 140px;
-    padding-bottom: 120px;
     background: #ffffff;
     min-height: 100vh;
 }
@@ -8,18 +6,33 @@
 .inner {
     max-width: 800px;
     margin: 0 auto;
-    padding: 0 24px;
+    padding: 0 24px 100px;
 }
 
 .header {
-    margin-bottom: 80px;
+    background-color: #f8fafc;
+    padding: 160px 24px 80px;
+    margin-bottom: 60px;
     text-align: center;
+    position: relative;
+    border-bottom: 1px solid #e2e8f0;
+}
+
+.header::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, #0d4677, #0070bc);
 }
 
 .eyebrow {
     display: inline-block;
     padding: 8px 16px;
-    background: #f0f4f8;
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
     color: #0d4677;
     border-radius: 999px;
     font-family: var(--font-body);
@@ -28,6 +41,7 @@
     letter-spacing: 0.1em;
     text-transform: uppercase;
     margin-bottom: 24px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
 }
 
 .title {

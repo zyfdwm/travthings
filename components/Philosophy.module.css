@@ -71,3 +71,10 @@
     margin-bottom: 24px;
   }
 }
+
+@media (max-width: 480px) {
+  .quoteText {
+    font-size: 26px;
+    line-height: 1.3;
+  }
+}

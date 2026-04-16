@@ -117,3 +117,15 @@
 .readMore:hover {
     gap: 8px;
 }
+
+@media (max-width: 480px) {
+    .title {
+        font-size: 19px;
+    }
+    
+    .summary {
+        font-size: 14px;
+        -webkit-line-clamp: 2;
+        line-clamp: 2;
+    }
+}

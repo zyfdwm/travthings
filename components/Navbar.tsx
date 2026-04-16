@@ -17,13 +17,13 @@ function NavbarSearch() {
     const pathname = usePathname();
     const router = useRouter();
     const searchParams = useSearchParams();
-    
+
     const [searchFocused, setSearchFocused] = useState(false);
     const [searchValue, setSearchValue] = useState("");
 
     const isBlogPage = pathname === "/blog";
     const isDestinationsPage = pathname === "/destinations";
-    
+
     // Sync search value with URL if on meaningful pages
     useEffect(() => {
         const query = searchParams.get("search");
@@ -57,7 +57,7 @@ function NavbarSearch() {
     }
 
     return (
-        <form 
+        <form
             onSubmit={handleSearch}
             className={`${styles.searchBox} ${searchFocused || searchValue ? styles.searchBoxFocused : ""}`}
         >
@@ -66,7 +66,7 @@ function NavbarSearch() {
             />
             <input
                 type="text"
-                placeholder={isBlogPage ? "Search..." : "Search destinations..."}
+                placeholder={isBlogPage ? "Search..." : "Search ..."}
                 value={searchValue}
                 onChange={(e) => setSearchValue(e.target.value)}
                 onFocus={() => setSearchFocused(true)}
@@ -78,8 +78,8 @@ function NavbarSearch() {
                 <button
                     type="button"
                     className={styles.clearBtn}
-                    onClick={() => { 
-                        setSearchValue(""); 
+                    onClick={() => {
+                        setSearchValue("");
                         setSearchFocused(false);
                         if (pathname === "/destinations" || pathname === "/blog") {
                             router.push(pathname);
@@ -103,13 +103,13 @@ export default function Navbar() {
 
                 {/* Logo */}
                 <Link href="/" className={styles.logo}>
-                    <Image 
-                        src="/logo.png" 
-                        alt="Travel Things" 
-                        width={180} 
-                        height={40} 
-                        priority 
-                        className={styles.logoImg} 
+                    <Image
+                        src="/logo.png"
+                        alt="Travel Things"
+                        width={180}
+                        height={40}
+                        priority
+                        className={styles.logoImg}
                     />
                 </Link>
 

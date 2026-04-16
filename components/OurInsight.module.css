@@ -202,10 +202,12 @@
     .header {
         flex-direction: column;
         gap: 20px;
+        margin-bottom: 40px;
     }
 
     .grid {
         grid-template-columns: 1fr;
+        gap: 40px;
     }
 
     .title {
@@ -214,5 +216,23 @@
 
     .imageWrapper {
         aspect-ratio: 3 / 2;
+    }
+
+    .cardTitle {
+        font-size: 22px;
+    }
+}
+
+@media (max-width: 480px) {
+    .title {
+        font-size: 28px;
+    }
+    
+    .inner {
+        padding: 0 20px;
+    }
+    
+    .section {
+        padding: 60px 0;
     }
 }
