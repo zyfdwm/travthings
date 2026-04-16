@@ -133,7 +133,7 @@ export default function HeroSection({ minimal = false }: { minimal?: boolean }) 
                         <button
                             type="submit"
                             className={styles.ctaButton}
-                            aria-label="Search destinations"
+                            aria-label="Search ..."
                         >
                             <ArrowRight size={24} />
                         </button>

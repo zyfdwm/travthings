@@ -128,7 +128,7 @@ export default function DestinationsClient({ allDestinations }: DestinationsClie
                             <Search className={styles.searchIcon} size={18} />
                             <input
                                 type="text"
-                                placeholder="Search destinations..."
+                                placeholder="Search ..."
                                 value={localSearch}
                                 onChange={(e) => setLocalSearch(e.target.value)}
                                 className={styles.searchInput}
