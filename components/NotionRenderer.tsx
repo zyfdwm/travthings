@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import styles from "./NotionRenderer.module.css";
 import { optimizeImageUrl } from "@/lib/utils";
 
@@ -48,17 +48,31 @@ const RichText = ({ text }: { text: any[] }) => {
 };
 
 export default function NotionRenderer({ blocks }: NotionRendererProps) {
+    const [shouldLoadViator, setShouldLoadViator] = useState(false);
+    const viatorObserverRef = useRef<IntersectionObserver | null>(null);
+
     useEffect(() => {
-        // Re-initialize Viator widgets if they are in the DOM
-        if (typeof window !== "undefined" && (window as any).ViatorWidget) {
-            try {
-                // If Viator provides a refresh method, call it here. 
-                // Otherwise, we re-inject the script.
-            } catch (e) {
-                console.error("Error refreshing Viator widgets:", e);
+        // Observe sections to trigger script loading
+        viatorObserverRef.current = new IntersectionObserver((entries) => {
+            if (entries.some(entry => entry.isIntersecting)) {
+                setShouldLoadViator(true);
+                // Once we decide to load, we can stop observing
+                if (viatorObserverRef.current) {
+                    viatorObserverRef.current.disconnect();
+                }
             }
-        }
-        
+        }, { rootMargin: "200px" }); // Start loading 200px before it comes into view
+
+        return () => {
+            if (viatorObserverRef.current) {
+                viatorObserverRef.current.disconnect();
+            }
+        };
+    }, []);
+
+    useEffect(() => {
+        if (!shouldLoadViator) return;
+
         // Ensure script is loaded if not already present
         if (!document.querySelector('script[src*="viator.com/orion/partner/widget.js"]')) {
             const script = document.createElement("script");
@@ -66,7 +80,7 @@ export default function NotionRenderer({ blocks }: NotionRendererProps) {
             script.async = true;
             document.head.appendChild(script);
         }
-    }, [blocks]);
+    }, [shouldLoadViator]);
 
     return (
         <div className={styles.notionContent}>
@@ -211,7 +225,15 @@ export default function NotionRenderer({ blocks }: NotionRendererProps) {
                         );
                     case "viator_widget":
                         return (
-                            <div key={id} className={styles.injectedWidget}>
+                            <div 
+                                key={id} 
+                                className={`${styles.injectedWidget} ${!shouldLoadViator ? styles.widgetLoading : ""}`}
+                                ref={(el) => {
+                                    if (el && viatorObserverRef.current) {
+                                        viatorObserverRef.current.observe(el);
+                                    }
+                                }}
+                            >
                                 <p className={styles.injectedWidgetTitle}>{value.title}</p>
                                 <div className="widgetScrollContainer">
                                     <div 

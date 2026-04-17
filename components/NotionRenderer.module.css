@@ -375,6 +375,19 @@
     }
 }
 
+.widgetLoading {
+    min-height: 450px; /* Estimated height of the Viator widget */
+    background: linear-gradient(90deg, #f0f0f0 25%, #f8f8f8 50%, #f0f0f0 75%);
+    background-size: 200% 100%;
+    animation: skeleton-pulse 1.5s infinite;
+    border-color: rgba(0, 0, 0, 0.04);
+}
+
+@keyframes skeleton-pulse {
+    0% { background-position: 200% 0; }
+    100% { background-position: -200% 0; }
+}
+
 @media (max-width: 480px) {
     .heading1 {
         font-size: 1.8rem;
