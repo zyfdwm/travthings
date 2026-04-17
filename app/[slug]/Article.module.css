@@ -125,7 +125,8 @@
 .layoutWrapper {
     max-width: 1400px;
     margin: 0 auto;
-    padding: 0 40px 100px; /* Removed 20px top padding to fix white gap */
+    padding: 0 40px 100px;
+    /* Removed 20px top padding to fix white gap */
 }
 
 .contentLayout {
@@ -143,7 +144,7 @@
     display: flex;
     align-items: center;
     gap: 16px;
-    margin-top: 0;
+    margin-top: 32px;
     margin-bottom: 32px;
     padding-bottom: 24px;
     border-bottom: 1px solid #e2e8f0;
