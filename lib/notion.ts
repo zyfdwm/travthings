@@ -65,7 +65,7 @@ function transformPost(page: any): BlogPost {
     };
 
     const getSelect = (prop: any) => prop?.select?.name || "";
-    const getMultiSelect = (prop: any) => prop?.multi_select?.map((s: any) => s.name) || [];
+    const getMultiSelect = (prop: any) => prop?.multi_select?.map((s: any) => s.name.trim()) || [];
 
     // Robust cover lookup
     const rawCover = getFileUrl(props.Cover) || 

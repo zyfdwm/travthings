@@ -86,8 +86,7 @@ export default function HeroSection({ minimal = false }: { minimal?: boolean }) 
                     className={styles.headingWrapper}
                 >
                     <h1 className={styles.heading}>
-                        Unforgettable <br />
-                        <span className={styles.headingAccent}>Cultural Journeys.</span>
+                        Unforgettable <span className={styles.headingAccent}>Cultural Journeys.</span>
                     </h1>
                 </motion.div>
 

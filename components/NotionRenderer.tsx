@@ -141,11 +141,11 @@ export default function NotionRenderer({ blocks }: NotionRendererProps) {
                         const isEmoji = value.icon?.type === "emoji";
                         const iconUrl = value.icon?.type === "external" ? value.icon.external?.url : (value.icon?.type === "file" ? value.icon.file?.url : "");
                         const bgColorClass = value.color && value.color !== 'default' ? styles[`callout_${value.color}`] : styles.callout_default;
-                        
+
                         return (
                             <div key={id} className={`${styles.callout} ${bgColorClass || ''}`}>
                                 <div className={styles.calloutIcon}>
-                                    {isEmoji ? value.icon.emoji : (iconUrl ? <img src={iconUrl} alt="icon"/> : "💡")}
+                                    {isEmoji ? value.icon.emoji : (iconUrl ? <img src={iconUrl} alt="icon" /> : "💡")}
                                 </div>
                                 <div className={styles.calloutText}>
                                     <RichText text={value.rich_text} />
@@ -213,9 +213,9 @@ export default function NotionRenderer({ blocks }: NotionRendererProps) {
                             <div key={id} className={styles.injectedWidget}>
                                 <p className={styles.injectedWidgetTitle}>{value.title}</p>
                                 <div className="widgetScrollContainer">
-                                    <div 
-                                        data-gyg-widget="auto" 
-                                        data-gyg-partner-id="KJBNEUM" 
+                                    <div
+                                        data-gyg-widget="auto"
+                                        data-gyg-partner-id="KJBNEUM"
                                         data-gyg-cmp="Activity"
                                         data-gyg-location-id={value.query || ""}
                                         data-gyg-q={value.query || ""}
@@ -225,8 +225,8 @@ export default function NotionRenderer({ blocks }: NotionRendererProps) {
                         );
                     case "viator_widget":
                         return (
-                            <div 
-                                key={id} 
+                            <div
+                                key={id}
                                 className={`${styles.injectedWidget} ${!shouldLoadViator ? styles.widgetLoading : ""}`}
                                 ref={(el) => {
                                     if (el && viatorObserverRef.current) {
@@ -236,7 +236,7 @@ export default function NotionRenderer({ blocks }: NotionRendererProps) {
                             >
                                 <p className={styles.injectedWidgetTitle}>{value.title}</p>
                                 <div className="widgetScrollContainer">
-                                    <div 
+                                    <div
                                         data-vi-partner-id="P00296791"
                                         data-vi-widget-ref={value.ref || "W-bf601b97-c77c-4223-acf5-883f005364ec"}
                                         data-vi-search-term={value.query || ""}

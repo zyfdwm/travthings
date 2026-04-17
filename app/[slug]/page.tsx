@@ -64,10 +64,10 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
 
         // VARIATIONS: biar gak muncul itu-itu aja tiap scroll
         const viatorVariations = [
+            locationKeyword, // Mulai dengan nama lokasi murni biar match-nya kuat
             `Things to do in ${locationKeyword}`,
             `Best tours in ${locationKeyword}`,
-            `Private tours in ${locationKeyword}`,
-            `Top rated activities in ${locationKeyword}`
+            `Private tours in ${locationKeyword}`
         ];
         let viatorCounter = 0;
 
