@@ -57,22 +57,22 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
         const transformed = [];
         const widgetInterval = 10; // Insert a widget every 10 blocks
         let blocksSinceLastWidget = -4; // Offset to avoid widget too early
-        
+
         for (let i = 0; i < blocks.length; i++) {
             transformed.push(blocks[i]);
             blocksSinceLastWidget++;
-            
+
             // Insert widget if we've reached the interval and there are enough blocks left
             if (blocksSinceLastWidget >= widgetInterval && i < blocks.length - 3) {
                 transformed.push({
                     id: `injected-gyg-${i}`,
                     type: "gyg_widget",
-                    gyg_widget: { title: "Recommended for Your Trip" }
+                    gyg_widget: { title: "Must-Do Activities" }
                 });
                 blocksSinceLastWidget = 0; // Reset counter
             }
         }
-        
+
         return transformed;
     };
 

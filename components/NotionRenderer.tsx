@@ -175,7 +175,7 @@ export default function NotionRenderer({ blocks }: NotionRendererProps) {
                     case "gyg_widget":
                         return (
                             <div key={id} className={styles.injectedWidget}>
-                                <h3 className={styles.injectedWidgetTitle}>{value.title}</h3>
+                                <p className={styles.injectedWidgetTitle}>{value.title}</p>
                                 <div className="gygScrollContainer">
                                     <div 
                                         data-gyg-widget="auto" 
