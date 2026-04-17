@@ -58,6 +58,18 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
         const widgetInterval = 5; // Reduced from 8 for more frequent injection
         let blocksSinceLastWidget = 0; // Start at 0 so widgets appear earlier
         let lastWidgetType = "viator"; // Start with GYG next
+        
+        // Ambil lokasi dari Tag pertama (karena Category isinya Travel Guide, Tips, dll)
+        const locationKeyword = post.tags?.[0] || post.category || "Indonesia";
+
+        // VARIATIONS: biar gak muncul itu-itu aja tiap scroll
+        const viatorVariations = [
+            `Things to do in ${locationKeyword}`,
+            `Best tours in ${locationKeyword}`,
+            `Private tours in ${locationKeyword}`,
+            `Top rated activities in ${locationKeyword}`
+        ];
+        let viatorCounter = 0;
 
         for (let i = 0; i < blocks.length; i++) {
             transformed.push(blocks[i]);
@@ -72,7 +84,10 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
                     type: widgetType,
                     [widgetType]: { 
                         title: isGYG ? "Recommended for Your Trip" : "Must-Do Activities",
-                        ref: isGYG ? undefined : "W-D5F4E6"
+                        ref: isGYG ? undefined : "W-bf601b97-c77c-4223-acf5-883f005364ec",
+                        query: isGYG 
+                            ? locationKeyword 
+                            : viatorVariations[viatorCounter++ % viatorVariations.length]
                     }
                 });
                 

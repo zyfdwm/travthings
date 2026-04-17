@@ -1,4 +1,6 @@
-import React from "react";
+"use client";
+
+import React, { useEffect } from "react";
 import styles from "./NotionRenderer.module.css";
 import { optimizeImageUrl } from "@/lib/utils";
 
@@ -46,6 +48,26 @@ const RichText = ({ text }: { text: any[] }) => {
 };
 
 export default function NotionRenderer({ blocks }: NotionRendererProps) {
+    useEffect(() => {
+        // Re-initialize Viator widgets if they are in the DOM
+        if (typeof window !== "undefined" && (window as any).ViatorWidget) {
+            try {
+                // If Viator provides a refresh method, call it here. 
+                // Otherwise, we re-inject the script.
+            } catch (e) {
+                console.error("Error refreshing Viator widgets:", e);
+            }
+        }
+        
+        // Ensure script is loaded if not already present
+        if (!document.querySelector('script[src*="viator.com/orion/partner/widget.js"]')) {
+            const script = document.createElement("script");
+            script.src = "https://www.viator.com/orion/partner/widget.js";
+            script.async = true;
+            document.head.appendChild(script);
+        }
+    }, [blocks]);
+
     return (
         <div className={styles.notionContent}>
             {blocks.map((block) => {
@@ -176,11 +198,13 @@ export default function NotionRenderer({ blocks }: NotionRendererProps) {
                         return (
                             <div key={id} className={styles.injectedWidget}>
                                 <p className={styles.injectedWidgetTitle}>{value.title}</p>
-                                <div className="gygScrollContainer">
+                                <div className="widgetScrollContainer">
                                     <div 
                                         data-gyg-widget="auto" 
                                         data-gyg-partner-id="KJBNEUM" 
                                         data-gyg-cmp="Activity"
+                                        data-gyg-location-id={value.query || ""}
+                                        data-gyg-q={value.query || ""}
                                     ></div>
                                 </div>
                             </div>
@@ -189,17 +213,11 @@ export default function NotionRenderer({ blocks }: NotionRendererProps) {
                         return (
                             <div key={id} className={styles.injectedWidget}>
                                 <p className={styles.injectedWidgetTitle}>{value.title}</p>
-                                <div 
-                                    className="vi-widget-container"
-                                    data-vi-partner-id="701232f8-c3c7-4523-9c83-8dba32b40b4f"
-                                    data-vi-language="en"
-                                    data-vi-currency="USD"
-                                    data-vi-search-term={value.query || ""}
-                                >
+                                <div className="widgetScrollContainer">
                                     <div 
-                                        className="viator-widget" 
-                                        data-vi-partner-id="701232f8-c3c7-4523-9c83-8dba32b40b4f"
-                                        data-vi-widget-ref={value.ref || "W-D5F4E6"}
+                                        data-vi-partner-id="P00296791"
+                                        data-vi-widget-ref={value.ref || "W-bf601b97-c77c-4223-acf5-883f005364ec"}
+                                        data-vi-search-term={value.query || ""}
                                     ></div>
                                 </div>
                             </div>
