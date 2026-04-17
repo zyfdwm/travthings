@@ -46,6 +46,12 @@ export default function RootLayout({
           data-gyg-partner-id="KJBNEUM"
           strategy="afterInteractive"
         />
+
+        {/* Viator Widget Script */}
+        <Script
+          src="https://www.viator.com/orion/partner/widget.js"
+          strategy="afterInteractive"
+        />
       </head>
       <body data-scroll-behavior="smooth">
         <Navbar />

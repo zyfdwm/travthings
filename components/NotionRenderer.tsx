@@ -185,6 +185,25 @@ export default function NotionRenderer({ blocks }: NotionRendererProps) {
                                 </div>
                             </div>
                         );
+                    case "viator_widget":
+                        return (
+                            <div key={id} className={styles.injectedWidget}>
+                                <p className={styles.injectedWidgetTitle}>{value.title}</p>
+                                <div 
+                                    className="vi-widget-container"
+                                    data-vi-partner-id="701232f8-c3c7-4523-9c83-8dba32b40b4f"
+                                    data-vi-language="en"
+                                    data-vi-currency="USD"
+                                    data-vi-search-term={value.query || ""}
+                                >
+                                    <div 
+                                        className="viator-widget" 
+                                        data-vi-partner-id="701232f8-c3c7-4523-9c83-8dba32b40b4f"
+                                        data-vi-widget-ref={value.ref || "W-D5F4E6"}
+                                    ></div>
+                                </div>
+                            </div>
+                        );
                     default:
                         console.warn(`Unsupported block type: ${type}`);
                         return null;
