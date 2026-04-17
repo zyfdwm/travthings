@@ -23,6 +23,7 @@ function NavbarSearch() {
 
     const isBlogPage = pathname === "/blog";
     const isDestinationsPage = pathname === "/destinations";
+    const isHomePage = pathname === "/";
 
     // Sync search value with URL if on meaningful pages
     useEffect(() => {
@@ -52,7 +53,7 @@ function NavbarSearch() {
 
     // Hide search entirely if on destinations page to avoid double search bars
     // NOTE: Early returns must happen AFTER all hooks (useState, useEffect, etc.) are called
-    if (isDestinationsPage) {
+    if (isDestinationsPage || isHomePage) {
         return null;
     }
 
