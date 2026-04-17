@@ -8,7 +8,26 @@ interface NotionRendererProps {
     blocks: any[];
 }
 
+function transformAffiliateUrl(url: string): string {
+    try {
+        const u = new URL(url);
 
+        if (u.hostname.includes("getyourguide.com")) {
+            u.searchParams.set("partner_id", "KJBNEUM");
+            return u.toString();
+        }
+
+        if (u.hostname.includes("viator.com")) {
+            u.searchParams.set("pid", "P00296791");
+            u.searchParams.set("mcid", "42383");
+            u.searchParams.set("medium", "link");
+            return u.toString();
+        }
+    } catch {
+        // URL invalid, return as-is
+    }
+    return url;
+}
 
 const RichText = ({ text }: { text: any[] }) => {
     if (!text) return null;
@@ -35,7 +54,7 @@ const RichText = ({ text }: { text: any[] }) => {
 
                 if (href) {
                     return (
-                        <a key={i} href={href} target="_blank" rel="noopener noreferrer">
+                        <a key={i} href={transformAffiliateUrl(href)} target="_blank" rel="noopener sponsored">
                             {element}
                         </a>
                     );
@@ -52,16 +71,14 @@ export default function NotionRenderer({ blocks }: NotionRendererProps) {
     const viatorObserverRef = useRef<IntersectionObserver | null>(null);
 
     useEffect(() => {
-        // Observe sections to trigger script loading
         viatorObserverRef.current = new IntersectionObserver((entries) => {
             if (entries.some(entry => entry.isIntersecting)) {
                 setShouldLoadViator(true);
-                // Once we decide to load, we can stop observing
                 if (viatorObserverRef.current) {
                     viatorObserverRef.current.disconnect();
                 }
             }
-        }, { rootMargin: "200px" }); // Start loading 200px before it comes into view
+        }, { rootMargin: "200px" });
 
         return () => {
             if (viatorObserverRef.current) {
@@ -73,7 +90,6 @@ export default function NotionRenderer({ blocks }: NotionRendererProps) {
     useEffect(() => {
         if (!shouldLoadViator) return;
 
-        // Ensure script is loaded if not already present
         if (!document.querySelector('script[src*="viator.com/orion/partner/widget.js"]')) {
             const script = document.createElement("script");
             script.src = "https://www.viator.com/orion/partner/widget.js";
@@ -140,10 +156,10 @@ export default function NotionRenderer({ blocks }: NotionRendererProps) {
                     case "callout":
                         const isEmoji = value.icon?.type === "emoji";
                         const iconUrl = value.icon?.type === "external" ? value.icon.external?.url : (value.icon?.type === "file" ? value.icon.file?.url : "");
-                        const bgColorClass = value.color && value.color !== 'default' ? styles[`callout_${value.color}`] : styles.callout_default;
+                        const bgColorClass = value.color && value.color !== "default" ? styles[`callout_${value.color}`] : styles.callout_default;
 
                         return (
-                            <div key={id} className={`${styles.callout} ${bgColorClass || ''}`}>
+                            <div key={id} className={`${styles.callout} ${bgColorClass || ""}`}>
                                 <div className={styles.calloutIcon}>
                                     {isEmoji ? value.icon.emoji : (iconUrl ? <img src={iconUrl} alt="icon" /> : "💡")}
                                 </div>
