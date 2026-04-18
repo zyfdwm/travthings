@@ -222,14 +222,15 @@
 
     .ctaBar {
         height: 64px;
-        padding: 6px 6px 6px 20px;
+        padding: 6px 6px 6px 16px;
         flex-direction: row;
         border-radius: 999px;
         align-items: center;
-        gap: 12px;
+        gap: 8px;
         width: 100%;
-        max-width: 500px;
+        max-width: 100%; /* Ensure it doesn't exceed viewport */
         margin-top: 12px;
+        box-sizing: border-box;
     }
 
     .ctaLeft {
