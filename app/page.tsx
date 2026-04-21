@@ -1,4 +1,5 @@
 import HeroSection from "@/components/HeroSection";
+import ExpediaWidget from "@/components/ExpediaWidget";
 import DestinationShowcase from "@/components/DestinationShowcase";
 import Philosophy from "@/components/Philosophy";
 import OurInsight from "@/components/OurInsight";
@@ -12,6 +13,7 @@ export default async function Home() {
   return (
     <>
       <HeroSection />
+      <ExpediaWidget />
       <DestinationShowcase />
       <Philosophy />
       <OurInsight posts={posts} />
