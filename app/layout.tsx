@@ -20,15 +20,28 @@ const interTight = Inter_Tight({
 });
 
 export const metadata: Metadata = {
-  title: "Travel Things | Curated Destinations & Tailored Itineraries",
+  metadataBase: new URL("https://travelthings.pages.dev"),
+  title: {
+    default: "Travel Things | Curated Destinations & Tailored Itineraries",
+    template: "%s | Travel Things"
+  },
   description:
     "Discover expert-verified destinations and travel itineraries with Travel Things...",
   verification: {
     google: "Ka1_u9PJKQ4aqsiHX0kk44nyM-jvXXqPMRrxtmfEG1o",
   },
   openGraph: {
+    title: "Travel Things | Curated Destinations & Tailored Itineraries",
+    description: "Discover expert-verified destinations and travel itineraries with Travel Things...",
+    url: "https://travelthings.pages.dev",
     siteName: "Travel Things",
+    type: "website",
   },
+  twitter: {
+    card: "summary_large_image",
+    title: "Travel Things",
+    description: "Discover expert-verified destinations and travel itineraries with Travel Things...",
+  }
 };
 
 export default function RootLayout({

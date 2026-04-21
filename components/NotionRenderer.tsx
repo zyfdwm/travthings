@@ -17,12 +17,6 @@ function transformAffiliateUrl(url: string): string {
             return u.toString();
         }
 
-        if (u.hostname.includes("viator.com")) {
-            u.searchParams.set("pid", "P00296791");
-            u.searchParams.set("mcid", "42383");
-            u.searchParams.set("medium", "link");
-            return u.toString();
-        }
     } catch {
         // URL invalid, return as-is
     }
@@ -67,36 +61,6 @@ const RichText = ({ text }: { text: any[] }) => {
 };
 
 export default function NotionRenderer({ blocks }: NotionRendererProps) {
-    const [shouldLoadViator, setShouldLoadViator] = useState(false);
-    const viatorObserverRef = useRef<IntersectionObserver | null>(null);
-
-    useEffect(() => {
-        viatorObserverRef.current = new IntersectionObserver((entries) => {
-            if (entries.some(entry => entry.isIntersecting)) {
-                setShouldLoadViator(true);
-                if (viatorObserverRef.current) {
-                    viatorObserverRef.current.disconnect();
-                }
-            }
-        }, { rootMargin: "200px" });
-
-        return () => {
-            if (viatorObserverRef.current) {
-                viatorObserverRef.current.disconnect();
-            }
-        };
-    }, []);
-
-    useEffect(() => {
-        if (!shouldLoadViator) return;
-
-        if (!document.querySelector('script[src*="viator.com/orion/partner/widget.js"]')) {
-            const script = document.createElement("script");
-            script.src = "https://www.viator.com/orion/partner/widget.js";
-            script.async = true;
-            document.head.appendChild(script);
-        }
-    }, [shouldLoadViator]);
 
     return (
         <div className={styles.notionContent}>
@@ -239,27 +203,7 @@ export default function NotionRenderer({ blocks }: NotionRendererProps) {
                                 </div>
                             </div>
                         );
-                    case "viator_widget":
-                        return (
-                            <div
-                                key={id}
-                                className={`${styles.injectedWidget} ${!shouldLoadViator ? styles.widgetLoading : ""}`}
-                                ref={(el) => {
-                                    if (el && viatorObserverRef.current) {
-                                        viatorObserverRef.current.observe(el);
-                                    }
-                                }}
-                            >
-                                <p className={styles.injectedWidgetTitle}>{value.title}</p>
-                                <div className="widgetScrollContainer">
-                                    <div
-                                        data-vi-partner-id="P00296791"
-                                        data-vi-widget-ref={value.ref || "W-bf601b97-c77c-4223-acf5-883f005364ec"}
-                                        data-vi-search-term={value.query || ""}
-                                    ></div>
-                                </div>
-                            </div>
-                        );
+
                     default:
                         console.warn(`Unsupported block type: ${type}`);
                         return null;
