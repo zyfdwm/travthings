@@ -1,34 +1,42 @@
 "use client";
 
-import Script from 'next/script';
+import { useEffect } from 'react';
 import styles from './ExpediaWidget.module.css';
 
-export default function ExpediaWidget() {
+export default function ViatorWidget() {
+  useEffect(() => {
+    // Remove any existing Viator script to avoid duplicates on re-render
+    const existing = document.querySelector('script[src*="viator.com/orion/partner/widget.js"]');
+    if (existing) existing.remove();
+
+    // Inject script AFTER the div is guaranteed to be in the DOM
+    const script = document.createElement('script');
+    script.src = 'https://www.viator.com/orion/partner/widget.js';
+    script.async = true;
+    document.body.appendChild(script);
+
+    return () => {
+      const s = document.querySelector('script[src*="viator.com/orion/partner/widget.js"]');
+      if (s) s.remove();
+    };
+  }, []);
+
   return (
     <section className={styles.section}>
       <div className={styles.inner}>
         <div className={styles.header}>
-          <span className={styles.eyebrow}>Plan Your Trip</span>
-          <h2 className={styles.title}>Book Your Next Trip.</h2>
+          {/* <span className={styles.eyebrow}>Plan Your Trip</span> */}
+          <h2 className={styles.title}>Explore Tours & Activities.</h2>
           <p className={styles.description}>
-            Find the best deals on flights and stays worldwide through our trusted partner, Expedia.
+            Discover our handpicked tours, activities, and experiences worldwide.
           </p>
         </div>
-        
+
         <div className={styles.widgetContainer}>
-            <div 
-              className="eg-widget" 
-              data-widget="search" 
-              data-program="us-expedia" 
-              data-lobs="stays,flights" 
-              data-network="pz" 
-              data-camref="1011l5I4zS" 
-              data-pubref=""
-            ></div>
-            <Script 
-              src="https://creator.expediagroup.com/products/widgets/assets/eg-widgets.js"
-              strategy="lazyOnload"
-            />
+          <div
+            data-vi-partner-id="P00296791"
+            data-vi-widget-ref="W-98030bf2-25b7-44ce-99db-2cb82b9ea483"
+          ></div>
         </div>
       </div>
     </section>

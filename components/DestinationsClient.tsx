@@ -8,6 +8,7 @@ import DestinationsHero from "./DestinationsHero";
 import styles from "@/app/destinations/Destinations.module.css";
 import { DestinationItem } from "@/lib/notion";
 
+const TOP_PICKS_SLUG = "top-picks";
 const DEFAULT_CATEGORIES = ["All Destinations"];
 
 interface DestinationsClientProps {
@@ -17,7 +18,7 @@ interface DestinationsClientProps {
 export default function DestinationsClient({ allDestinations }: DestinationsClientProps) {
     const searchParams = useSearchParams();
     const router = useRouter();
-    
+
     // Read params from URL
     const categoryQuery = searchParams.get("category") || "all destinations";
     const searchQuery = searchParams.get("search") || "";
@@ -32,8 +33,29 @@ export default function DestinationsClient({ allDestinations }: DestinationsClie
             }
         });
         const sortedCats = Array.from(uniqueCategories).sort();
-        return ["All Destinations", ...sortedCats];
+        // "Top Picks" is pinned as the second tab (after All Destinations)
+        return ["All Destinations", "Top Picks", ...sortedCats];
     }, [allDestinations]);
+
+    const isTopPicks = categoryQuery.toLowerCase() === TOP_PICKS_SLUG;
+
+    // Inject Viator script only when Top Picks tab is active
+    useEffect(() => {
+        if (!isTopPicks) return;
+
+        const existing = document.querySelector('script[src*="viator.com/orion/partner/widget.js"]');
+        if (existing) existing.remove();
+
+        const script = document.createElement('script');
+        script.src = 'https://www.viator.com/orion/partner/widget.js';
+        script.async = true;
+        document.body.appendChild(script);
+
+        return () => {
+            const s = document.querySelector('script[src*="viator.com/orion/partner/widget.js"]');
+            if (s) s.remove();
+        };
+    }, [isTopPicks]);
 
     // Local state for the search input to keep it snappy
     const [localSearch, setLocalSearch] = useState(searchQuery);
@@ -68,21 +90,21 @@ export default function DestinationsClient({ allDestinations }: DestinationsClie
     // Filter logic
     const filteredDestinations = useMemo(() => {
         return allDestinations.filter(item => {
-            const matchesCategory = categoryQuery === "all destinations" || 
-                                    item.category.toLowerCase() === categoryQuery.toLowerCase();
-            
-            const matchesSearch = !searchQuery || 
-                                   item.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-                                   item.location.toLowerCase().includes(searchQuery.toLowerCase()) ||
-                                   item.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
-                                   item.category.toLowerCase().includes(searchQuery.toLowerCase());
-            
+            const matchesCategory = categoryQuery === "all destinations" ||
+                item.category.toLowerCase() === categoryQuery.toLowerCase();
+
+            const matchesSearch = !searchQuery ||
+                item.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+                item.location.toLowerCase().includes(searchQuery.toLowerCase()) ||
+                item.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
+                item.category.toLowerCase().includes(searchQuery.toLowerCase());
+
             return matchesCategory && matchesSearch;
         });
     }, [allDestinations, categoryQuery, searchQuery]);
 
     const selectedCategory = dynamicCategories.find(c => c.toLowerCase() === categoryQuery.toLowerCase()) || "All Destinations";
-    
+
     // Pagination logic
     const totalPages = Math.ceil(filteredDestinations.length / itemsPerPage);
     const currentPage = Math.max(1, Math.min(pageQuery, totalPages || 1));
@@ -107,23 +129,26 @@ export default function DestinationsClient({ allDestinations }: DestinationsClie
                         <div className={styles.pillContainer}>
                             {dynamicCategories.map((cat) => {
                                 const active = selectedCategory === cat;
+                                const isTopPicksCat = cat === "Top Picks";
                                 const params = new URLSearchParams();
-                                if (cat !== "All Destinations") params.set("category", cat.toLowerCase());
-                                if (searchQuery) params.set("search", searchQuery);
+                                if (cat !== "All Destinations") {
+                                    params.set("category", isTopPicksCat ? TOP_PICKS_SLUG : cat.toLowerCase());
+                                }
+                                if (searchQuery && !isTopPicksCat) params.set("search", searchQuery);
                                 const href = params.toString() ? `/destinations?${params.toString()}` : "/destinations";
-                                
+
                                 return (
                                     <a
                                         key={cat}
                                         href={href}
-                                        className={`${styles.pill} ${active ? styles.pillActive : ""}`}
+                                        className={`${styles.pill} ${active ? styles.pillActive : ""} ${isTopPicksCat && !active ? styles.pillTopPicks : ""}`}
                                     >
-                                        {cat}
+                                        {isTopPicksCat && "⭐ "}{cat}
                                     </a>
                                 );
                             })}
                         </div>
-                        
+
                         <form className={styles.searchForm} onSubmit={handleSearchSubmit}>
                             <Search className={styles.searchIcon} size={18} />
                             <input
@@ -142,7 +167,9 @@ export default function DestinationsClient({ allDestinations }: DestinationsClie
                     </div>
 
                     <div className={styles.stats}>
-                        {searchQuery ? (
+                        {isTopPicks ? (
+                            <>See our Top Picks and Recommendation Destinations</>
+                        ) : searchQuery ? (
                             <>Results for &quot;{searchQuery}&quot; in {selectedCategory}</>
                         ) : (
                             <>Showing {paginatedDestinations.length} of {filteredDestinations.length} {selectedCategory === "All Destinations" ? "destinations" : `destinations in ${selectedCategory}`}</>
@@ -152,7 +179,15 @@ export default function DestinationsClient({ allDestinations }: DestinationsClie
             </div>
 
             <section className={styles.gridSection}>
-                {filteredDestinations.length > 0 ? (
+                {isTopPicks ? (
+                    /* ── Top Picks: Viator Widget ── */
+                    <div className={styles.viatorWidgetWrap}>
+                        <div
+                            data-vi-partner-id="P00296791"
+                            data-vi-widget-ref="W-344d1bbb-0d9c-4f4f-a429-017d1873f2fb"
+                        ></div>
+                    </div>
+                ) : filteredDestinations.length > 0 ? (
                     <>
                         <div className={styles.grid}>
                             {paginatedDestinations.map((item) => (

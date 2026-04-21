@@ -68,6 +68,27 @@
     color: #ffffff;
 }
 
+/* Top Picks pill — subtle golden accent when inactive */
+.pillTopPicks {
+    background: #fff8e7;
+    color: #b07d00;
+    border: 1px solid #f0d070;
+}
+
+.pillTopPicks:hover {
+    background: #fef3c7;
+}
+
+/* Viator widget wrapper */
+.viatorWidgetWrap {
+    background: #ffffff;
+    border-radius: 20px;
+    padding: 32px;
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.06);
+    min-height: 200px;
+}
+
+
 .searchForm {
     display: flex;
     align-items: center;

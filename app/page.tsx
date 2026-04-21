@@ -1,5 +1,5 @@
 import HeroSection from "@/components/HeroSection";
-import ExpediaWidget from "@/components/ExpediaWidget";
+import ExpediaWidget from "@/components/ExpediaWidget"; // now renders Viator widget
 import DestinationShowcase from "@/components/DestinationShowcase";
 import Philosophy from "@/components/Philosophy";
 import OurInsight from "@/components/OurInsight";

@@ -7,7 +7,7 @@
     box-shadow: 0 1px 8px rgba(0, 0, 0, 0.04);
     width: 100%;
     box-sizing: border-box;
-    overflow-x: hidden;
+    overflow: hidden; /* prevent any child element from causing scroll */
 }
 
 .nav {
@@ -74,7 +74,7 @@
 .linkActive::after {
     content: "";
     position: absolute;
-    bottom: -19px;
+    bottom: 2px;
     left: 14px;
     right: 14px;
     height: 2px;
