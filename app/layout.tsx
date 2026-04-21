@@ -22,9 +22,12 @@ const interTight = Inter_Tight({
 export const metadata: Metadata = {
   title: "Travel Things | Curated Destinations & Tailored Itineraries",
   description:
-    "Discover expert-verified destinations and travel itineraries with Travel Things. Experience the world at your own pace with our premium concierge service.",
+    "Discover expert-verified destinations and travel itineraries with Travel Things...",
   verification: {
     google: "Ka1_u9PJKQ4aqsiHX0kk44nyM-jvXXqPMRrxtmfEG1o",
+  },
+  openGraph: {
+    siteName: "Travel Things",
   },
 };
 
@@ -39,7 +42,7 @@ export default function RootLayout({
         {/* Preconnect to GYG for faster widget loading */}
         <link rel="preconnect" href="https://widget.getyourguide.com" />
         <link rel="dns-prefetch" href="https://widget.getyourguide.com" />
-        
+
         {/* GetYourGuide Analytics */}
         <Script
           src="https://widget.getyourguide.com/dist/pa.umd.production.min.js"
