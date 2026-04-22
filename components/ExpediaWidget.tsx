@@ -1,26 +1,8 @@
 "use client";
 
-import { useEffect } from 'react';
 import styles from './ExpediaWidget.module.css';
 
 export default function ViatorWidget() {
-  useEffect(() => {
-    // Remove any existing Viator script to avoid duplicates on re-render
-    const existing = document.querySelector('script[src*="viator.com/orion/partner/widget.js"]');
-    if (existing) existing.remove();
-
-    // Inject script AFTER the div is guaranteed to be in the DOM
-    const script = document.createElement('script');
-    script.src = 'https://www.viator.com/orion/partner/widget.js';
-    script.async = true;
-    document.body.appendChild(script);
-
-    return () => {
-      const s = document.querySelector('script[src*="viator.com/orion/partner/widget.js"]');
-      if (s) s.remove();
-    };
-  }, []);
-
   return (
     <section className={styles.section}>
       <div className={styles.inner}>
@@ -33,10 +15,7 @@ export default function ViatorWidget() {
         </div>
 
         <div className={styles.widgetContainer}>
-          <div
-            data-vi-partner-id="P00296791"
-            data-vi-widget-ref="W-98030bf2-25b7-44ce-99db-2cb82b9ea483"
-          ></div>
+          <div data-gyg-widget="auto" data-gyg-partner-id="KJBNEUM" data-gyg-cmp="travelthings"></div> 
         </div>
       </div>
     </section>

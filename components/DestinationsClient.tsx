@@ -39,23 +39,7 @@ export default function DestinationsClient({ allDestinations }: DestinationsClie
 
     const isTopPicks = categoryQuery.toLowerCase() === TOP_PICKS_SLUG;
 
-    // Inject Viator script only when Top Picks tab is active
-    useEffect(() => {
-        if (!isTopPicks) return;
-
-        const existing = document.querySelector('script[src*="viator.com/orion/partner/widget.js"]');
-        if (existing) existing.remove();
-
-        const script = document.createElement('script');
-        script.src = 'https://www.viator.com/orion/partner/widget.js';
-        script.async = true;
-        document.body.appendChild(script);
-
-        return () => {
-            const s = document.querySelector('script[src*="viator.com/orion/partner/widget.js"]');
-            if (s) s.remove();
-        };
-    }, [isTopPicks]);
+    // No script injection needed as GetYourGuide is globally available
 
     // Local state for the search input to keep it snappy
     const [localSearch, setLocalSearch] = useState(searchQuery);
@@ -180,12 +164,9 @@ export default function DestinationsClient({ allDestinations }: DestinationsClie
 
             <section className={styles.gridSection}>
                 {isTopPicks ? (
-                    /* ── Top Picks: Viator Widget ── */
+                    /* ── Top Picks: GetYourGuide Widget ── */
                     <div className={styles.viatorWidgetWrap}>
-                        <div
-                            data-vi-partner-id="P00296791"
-                            data-vi-widget-ref="W-344d1bbb-0d9c-4f4f-a429-017d1873f2fb"
-                        ></div>
+                        <div data-gyg-href="https://widget.getyourguide.com/default/activities.frame" data-gyg-location-id="278" data-gyg-locale-code="en-US" data-gyg-widget="activities" data-gyg-number-of-items="30" data-gyg-cmp="top-picks" data-gyg-partner-id="KJBNEUM"><span>Powered by <a target="_blank" rel="sponsored" href="https://www.getyourguide.com/jakarta-l278/">GetYourGuide</a></span></div>
                     </div>
                 ) : filteredDestinations.length > 0 ? (
                     <>
