@@ -26,7 +26,13 @@ export const metadata: Metadata = {
     template: "%s | Travel Things"
   },
   description:
-    "Discover expert-verified destinations and travel itineraries with Travel Things...",
+    "Discover expert-verified destinations and travel itineraries with Travel Things. Experience the world at your own pace with our premium concierge service.",
+  applicationName: "Travel Things",
+  appleWebApp: {
+    title: "Travel Things",
+    statusBarStyle: "default",
+    capable: true,
+  },
   verification: {
     google: "Ka1_u9PJKQ4aqsiHX0kk44nyM-jvXXqPMRrxtmfEG1o",
   },
@@ -49,9 +55,20 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "Travel Things",
+    "url": "https://travelthings.pages.dev",
+  };
+
   return (
     <html lang="en" className={`${plusJakartaSans.variable} ${interTight.variable}`} data-scroll-behavior="smooth">
       <head>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
         {/* Preconnect to GYG for faster widget loading */}
         <link rel="preconnect" href="https://widget.getyourguide.com" />
         <link rel="dns-prefetch" href="https://widget.getyourguide.com" />
