@@ -16,11 +16,11 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     priority: 0.8,
   }));
 
-  const routes = ['', '/blog', '/destinations'].map((route) => ({
+  const routes = ['', '/blog', '/destinations', '/attractions', '/press', '/privacy', '/sustainability', '/terms'].map((route) => ({
     url: `${baseUrl}${route}`,
     lastModified: new Date(),
     changeFrequency: 'daily' as const,
-    priority: route === '' ? 1.0 : 0.9,
+    priority: route === '' ? 1.0 : (route === '/blog' || route === '/destinations') ? 0.9 : 0.7,
   }));
 
   return [...routes, ...postUrls];
